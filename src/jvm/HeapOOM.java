@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * Created by chris on 3/8/18.
+ * -Xms20m -Xmx20m -XX:+HeapDumpOnOutOfMemoryError
  */
 public class HeapOOM {
 
