@@ -1,6 +1,7 @@
 package map;
 
-import java.util.HashMap;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by chris on 10/10/17.
@@ -8,7 +9,7 @@ import java.util.HashMap;
  */
 public class MapTest {
 
-    public static class MapCounter extends HashMap<String, Integer>{
+    public static class MapCounter extends ConcurrentHashMap<String, Integer>{
         public void count(String al){
             Integer c = get(al);
             if(c == null) {
