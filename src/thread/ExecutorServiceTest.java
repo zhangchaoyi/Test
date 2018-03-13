@@ -3,6 +3,7 @@ package thread;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by zcy on 18-3-13.
@@ -29,8 +30,29 @@ public class ExecutorServiceTest {
         //核心线程数 = 最大线程数 = 1
         ExecutorService es3 = Executors.newSingleThreadExecutor();
 
-        ScheduledExecutorService es4 = Executors.newScheduledThreadPool(10);
-        es4.sscheduleWithFixedDelay()
+        ScheduledExecutorService es4 = Executors.newScheduledThreadPool(1);
+
+//        es4.scheduleAtFixedRate(() -> {
+//            long curTs = System.currentTimeMillis() / 1000;
+//            System.out.println("running " + curTs);
+//            try {
+//                TimeUnit.SECONDS.sleep(7);
+//                System.out.println(curTs + "end " + System.currentTimeMillis() / 1000);
+//            } catch (InterruptedException e){
+//                System.out.println("error");
+//            }
+//        }, 3, 5, TimeUnit.SECONDS);
+
+        es4.scheduleWithFixedDelay(() -> {
+            long curTs = System.currentTimeMillis() / 1000;
+            System.out.println(curTs);
+            try {
+                TimeUnit.SECONDS.sleep(7);
+                System.out.println(curTs + "end " + System.currentTimeMillis() / 1000);
+            } catch (InterruptedException e){
+                System.out.println("error");
+            }
+        }, 3, 5, TimeUnit.SECONDS);
 
     }
 }

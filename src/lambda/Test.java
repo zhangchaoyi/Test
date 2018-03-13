@@ -2,6 +2,7 @@ package lambda;
 
 /**
  * Created by zcy on 18-3-13.
+ * 方法传具体实现，由匿名类继承接口 完成实现
  */
 public class Test {
 
