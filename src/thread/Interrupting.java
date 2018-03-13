@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by chris on 3/4/18.
  * 中断测试
- * 不能中断正在试图获取synchronied锁或者试图执行IO操作的线程
+ * 不能中断正在试图获取synchronied锁 或者 已经获得锁 或者试图执行IO操作的线程
  */
 public class Interrupting {
     private static ExecutorService es = Executors.newCachedThreadPool();
@@ -25,7 +25,11 @@ public class Interrupting {
     public static void main(String[] args) throws Exception{
 //        test (new SleepBlocked());
 //        test(new IOBlocked(System.in));
-        test(new SynchronizedBlocked());
+//        test(new SynchronizedBlocked());
+        Thread t = new Thread(new SynchronizedBlocked());
+        t.start();
+        TimeUnit.SECONDS.sleep(2);
+        t.interrupt();
     }
 
     private static void print(String str){
@@ -65,16 +69,19 @@ public class Interrupting {
         }
     }
 
+
     static class SynchronizedBlocked implements Runnable {
         public synchronized void f(){
             while(true)
-                Thread.yield();
+                Thread.yield();//yield不会释放锁
         }
-        public SynchronizedBlocked(){
-            new Thread(() -> {
-                f();
-            }).start();
-        }
+
+        //开启一个线程占有锁
+//        public SynchronizedBlocked(){
+//            new Thread(() -> {
+//                f();
+//            }).start();
+//        }
 
         @Override
         public void run(){
