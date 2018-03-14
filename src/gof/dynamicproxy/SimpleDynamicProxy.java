@@ -7,6 +7,8 @@ import java.lang.reflect.Proxy;
 
 /**
  * Created by chris on 10/11/17.
+ * JDK 动态代理
+ * Proxy.newProxyInstance(interface.class.getClassLoader(), new Class[]{interface.class}, 实现了InvocationHandler的类对象)  创建一个代理
  */
 public class SimpleDynamicProxy {
 

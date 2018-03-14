@@ -13,6 +13,6 @@ public class RealObject implements Interface {
 
     @Override
     public void somethingElse(String arg) {
-
+        System.out.println("do something else " + arg);
     }
 }
