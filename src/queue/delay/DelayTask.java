@@ -1,4 +1,4 @@
-package queue;
+package queue.delay;
 
 import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;
