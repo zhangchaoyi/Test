@@ -17,7 +17,7 @@ public class RuntimeConstantPoolOOM {
         //10MB的PermSize在integer范围足够产生OOM
         int i = 0;
         while(true){
-            list.add(String.valueOf(i).intern());
+            list.add(String.valueOf(i).intern());//intern方法会先查常量池是否有string，如果没有则在常量池新建
         }
     }
 }

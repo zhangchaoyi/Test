@@ -8,7 +8,7 @@ public class JavaVMStackSOF {
 
     private int stackLength = 1;
 
-    public void stackLeak(){
+    public void stackLeak(){//递归调用
         stackLength ++;
         stackLeak();
     }
