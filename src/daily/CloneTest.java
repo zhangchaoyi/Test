@@ -1,12 +1,19 @@
 package daily;
 
+import util.CloneUtils;
+
+import java.io.Serializable;
+
 /**
  * Created by zcy on 18-3-12.
  * 深复制，对于对象的每个成员需要成员实现Cloneable方法，并且在父类clone中调用成员的clone()
+ * 或者
+ * 使用序列化进行clone
+ *
  */
 public class CloneTest {
 
-    public static class Person implements Cloneable {
+    public static class Person implements Cloneable, Serializable {
         private int state;
         private Head head;
 
@@ -35,7 +42,7 @@ public class CloneTest {
         }
     }
 
-    public static class Head implements  Cloneable {
+    public static class Head implements  Cloneable, Serializable {
         private Face face;
 
         public Face getFace() {
@@ -55,7 +62,7 @@ public class CloneTest {
         }
     }
 
-    public static class Face implements Cloneable {
+    public static class Face implements Cloneable, Serializable {
         private String look;
 
         public String getLook() {
@@ -84,13 +91,19 @@ public class CloneTest {
         Person p = new Person();
         p.setHead(h);
         p.setState(1);
-
-
+//
+//
         Person p1 = (Person) p.clone();
         System.out.println(p1==p);
         System.out.println(p1.getHead() ==p.getHead());
         System.out.println(p1.getHead().getFace() ==p.getHead().getFace());
         System.out.println(p1.getHead().getFace().getLook() ==p.getHead().getFace().getLook());
+
+        Person p2 = CloneUtils.clone(p);
+        System.out.println(p2 == p);
+        System.out.println(p2.getHead() ==p.getHead());
+        System.out.println(p2.getHead().getFace() ==p.getHead().getFace());
+        System.out.println(p2.getHead().getFace().getLook() ==p.getHead().getFace().getLook());
     }
 
 }
