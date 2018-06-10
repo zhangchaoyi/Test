@@ -1,9 +1,6 @@
 package thread;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -34,26 +31,45 @@ public class ExecutorServiceTest {
      * @param args
      */
     public static void main(String[] args) {
-        //核心线程数 = 最大线程数
-        ExecutorService es1 = Executors.newFixedThreadPool(10);
+//        //核心线程数 = 最大线程数
+//        ExecutorService es1 = Executors.newFixedThreadPool(10);
+//
+//        //核心线程数=0, 最大线程数 = 无限
+//        ExecutorService es2 = Executors.newCachedThreadPool();
+//
+//        //核心线程数 = 最大线程数 = 1
+//        ExecutorService es3 = Executors.newSingleThreadExecutor();
+//
+//        ScheduledExecutorService es4 = Executors.newScheduledThreadPool(10);
+//
+//
+//        System.out.println(CAPACITY);
+//        System.out.println(RUNNING);
+//        System.out.println(SHUTDOWN);
+//        System.out.println(STOP);
+//        System.out.println(TIDYING);
+//        System.out.println(TERMINATED);
+//
+//        System.out.println(ctlOf(RUNNING, 0));
 
-        //核心线程数=0, 最大线程数 = 无限
-        ExecutorService es2 = Executors.newCachedThreadPool();
+        /**
+         * 测试当rejectHandler为new ThreadPoolExecutor.CallerRunsPolicy()时
+         * 会使用当前的线程来运行run方法而非ThreadPoolExecutor
+         */
+        ThreadPoolExecutor tpe = new ThreadPoolExecutor(1, 1, 0, TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(1), new ThreadPoolExecutor.CallerRunsPolicy());
+        for(int i=0; i<10; i++){
+            Runnable testRun = new TestHH();
+            tpe.execute(testRun);
+        }
+    }
 
-        //核心线程数 = 最大线程数 = 1
-        ExecutorService es3 = Executors.newSingleThreadExecutor();
+    public static class TestHH implements Runnable{
 
-        ScheduledExecutorService es4 = Executors.newScheduledThreadPool(10);
+        @Override
+        public void run(){
+            System.out.println(Thread.currentThread().getName());
+        }
 
-
-        System.out.println(CAPACITY);
-        System.out.println(RUNNING);
-        System.out.println(SHUTDOWN);
-        System.out.println(STOP);
-        System.out.println(TIDYING);
-        System.out.println(TERMINATED);
-
-        System.out.println(ctlOf(RUNNING, 0));
 
     }
 }
