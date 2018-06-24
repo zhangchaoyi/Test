@@ -4,6 +4,9 @@ package leecode.array;
  * Created by chris on 6/24/18.
  * 一个有序数组向右偏移K位，K <= length, 求k
  * 如：10 28 40 50 1 4 5 6 8 9
+ *
+ * 一般解决办法的思路，遍历一次O(n), 直接寻找到k
+ * 最优复杂度 二分 O(logn)
  */
 public class KAarry {
 
