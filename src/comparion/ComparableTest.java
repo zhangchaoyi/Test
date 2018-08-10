@@ -10,12 +10,12 @@ import java.util.List;
 public class ComparableTest {
 
     public static void main(String[] args){
-        Employee e1 = new Employee("a", 2, "a");
-        Employee e2 = new Employee("b", 5, "b");
-        Employee e3 = new Employee("c", 3, "c");
-        Employee e4 = new Employee("d", 98, "d");
+        comparion.Employee e1 = new comparion.Employee("a", 2, "a");
+        comparion.Employee e2 = new comparion.Employee("b", 5, "b");
+        comparion.Employee e3 = new comparion.Employee("c", 3, "c");
+        comparion.Employee e4 = new comparion.Employee("d", 98, "d");
 
-        List<Employee> employeeList = new ArrayList<Employee>(){
+        List<comparion.Employee> employeeList = new ArrayList<comparion.Employee>(){
             {add(e1);}
             {add(e2);}
             {add(e3);}
