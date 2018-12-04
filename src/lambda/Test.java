@@ -2,14 +2,16 @@ package lambda;
 
 /**
  * Created by zcy on 18-3-13.
+ * 传方法引用
  */
 public class Test {
 
+    @FunctionalInterface
     public static interface TInterface {
 
         void interfaceTest1(int i);
 
-//        void interfaceTest2(); //如果开启该注释则在lambda中需要new Runnable
+//        void interfaceTest2(); //如果开启该注释则需要先去除@FunctionalInterface注解，在lambda中需要new Runnable
     }
 
     public static void test(TInterface tInterface){
