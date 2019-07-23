@@ -6,42 +6,48 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * Created by zcy on 18-3-28.
  * 三个线程顺序输出 ABC
+ * 思想：三个线程加锁共享一个变量，取模运算 %
  */
 public class OrderThreadTest {
     private int count = 0;
     Lock lock = new ReentrantLock();
 
     private void executeA(){
-        for(int i=0; i<10; ){//i++不能写在for中，要求在print后才可以i++
+        while(true){
+            System.out.println("execute A count:"+count);
             lock.lock();
             if (count % 3 == 0){
                 System.out.println("********* A");
                 count ++ ;
-                i++;
             }
             lock.unlock();
         }
     }
 
     private void executeB(){
-        for(int i=0; i<10;) {
+        while(true){
+            System.out.println("execute B count:"+count);
             lock.lock();
             if (count % 3 == 1) {
                 System.out.println("********* B");
                 count++;
-                i++;
             }
             lock.unlock();
         }
     }
 
     private void executeC(){
-        for(int i=0; i<10;) {
+        while(true) {
+            System.out.println("execute C count:"+count);
             lock.lock();
             if (count % 3 == 2) {
                 System.out.println("********* C");
                 count++;
-                i++;
+                try {
+                    Thread.sleep(2000);
+                } catch(InterruptedException e){
+
+                }
             }
             lock.unlock();
         }

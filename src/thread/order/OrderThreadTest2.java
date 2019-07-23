@@ -6,6 +6,8 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by zcy on 18-3-28.
+ *
+ * condition 通知机制
  */
 public class OrderThreadTest2 {
     private static Lock lock = new ReentrantLock();
@@ -15,54 +17,65 @@ public class OrderThreadTest2 {
     private static Condition CC = lock.newCondition();
 
     private static void executeA(){
-        lock.lock();
-        for(int i=0; i<10; i++){
-            while (count % 3 != 0){
+        while(true){
+            System.out.println("execute A count:"+count);
+            lock.lock();
+            if (count % 3 != 0) {
                 try {
-                    CA.await();//释放lock
-                } catch (InterruptedException e){
+                    CA.await();
+                } catch(InterruptedException e){
 
                 }
+            } else {
+                System.out.println("********* A");
+                CB.signal();
+                count++;
             }
-            System.out.println("********* A");
-            count ++ ;
-            CB.signal();
+            lock.unlock();
         }
-        lock.unlock();
     }
 
     private static void executeB(){
-        lock.lock();
-        for(int i=0; i<10; i++){
-            while (count % 3 != 1){
+        while(true){
+            System.out.println("execute B count:"+count);
+            lock.lock();
+            if (count % 3 != 1) {
                 try {
                     CB.await();
-                } catch (InterruptedException e){
+                } catch(InterruptedException e){
 
                 }
+            } else {
+                System.out.println("********* B");
+                CC.signal();
+                count++;
             }
-            System.out.println("********* B");
-            count ++ ;
-            CC.signal();
+            lock.unlock();
         }
-        lock.unlock();
     }
 
     private static void executeC(){
-        lock.lock();
-        for(int i=0; i<10; i++){
-            while (count % 3 != 2){
+        while(true){
+            System.out.println("execute C count:"+count);
+            lock.lock();
+            if (count % 3 != 2) {
                 try {
                     CC.await();
-                } catch (InterruptedException e){
+                } catch(InterruptedException e){
+
+                }
+            } else {
+                System.out.println("********* C");
+                CA.signal();
+                count++;
+                try {
+                    Thread.sleep(2000);
+                } catch(Exception e){
 
                 }
             }
-            System.out.println("********* C");
-            count ++ ;
-            CA.signal();
+            lock.unlock();
         }
-        lock.unlock();
     }
 
     public static void main(String[] args){
