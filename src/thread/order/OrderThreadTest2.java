@@ -12,9 +12,13 @@ import java.util.concurrent.locks.ReentrantLock;
 public class OrderThreadTest2 {
     private static Lock lock = new ReentrantLock();
     private static int count = 0;
+    //使用三个Condition，粒度会更细，顺序更清晰
     private static Condition CA = lock.newCondition();
     private static Condition CB = lock.newCondition();
     private static Condition CC = lock.newCondition();
+
+    //也可以三个线程只使用同一个Condition，此时相当于wait()和notifyAll()
+//    private static Condition ALL = lock.newCondition();
 
     private static void executeA(){
         while(true){

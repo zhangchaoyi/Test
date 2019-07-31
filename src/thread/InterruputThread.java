@@ -5,22 +5,17 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by zcy on 18-3-13.
  * 对于非阻塞状态的线程 无法使用t.interrupt()进行中断
- * 需要在run()方法中加 isInterrupted() 进行判断
+ * 需要在run()方法中加 isInterrupted() 进行判断, 因为调用线程对象的interrupted()方法相当于修改该线程的中断标记为true
+ *
+ * thread obj.interrupted()中断线程，设置线程的中断标记为true
+ * thread obj.isInterrupted()进行查询线程的中断标记位
+ * Thread.interrupted()用于获取线程的中断标记位并重置标记位为false
+ * Thread.currentThread().isInterrupted()用于获取main线程中断标记位
+ * Thread.currentThread().interrupted()用于中断main线程
  */
 public class InterruputThread {
     public static void main(String[] args) throws InterruptedException {
-        Thread t1=new Thread(){
-            @Override
-            public void run(){
-                while(true){
-//                    if(this.isInterrupted()) {
-//                        System.out.println("线程中断");
-//                        break;
-//                    }
-                    System.out.println("未被中断");
-                }
-            }
-        };
+        Thread t1 = new MyThread();
         t1.start();
         TimeUnit.SECONDS.sleep(2);
         t1.interrupt();
@@ -32,5 +27,61 @@ public class InterruputThread {
          未被中断
          ......
          */
+    }
+
+    public static class MyThread extends Thread {
+
+        @Override public void run() {
+            while(true){
+                if(Thread.interrupted()) {//如果这个判断使用this.isInterrupted()，则下面的逻辑中需要加上Thread.interrupted()
+                    System.out.println("线程中断");
+//                    System.out.println("第一次打印thread中断" + Thread.interrupted());//此操作相当于重置当前线程中断标志
+                    System.out.println("第一次打印thread中断" + this.isInterrupted());
+                    break;
+                }
+                System.out.println("未被中断");
+            }
+        }
+    }
+
+    public static void test2(){
+        Thread myThread = new Thread(() -> {while(true){}});
+        myThread.start();
+        myThread.interrupt();
+        System.out.println("第一次调用:" +Thread.interrupted());//false 因为main的线程不是中断状态
+        System.out.println("第二次调用:" +Thread.interrupted());//false
+    }
+
+    public static void test3(){
+        Thread myThread = new Thread(() -> {while(true){}});
+        myThread.start();
+        myThread.interrupt();
+        Thread.currentThread().interrupt();
+        System.out.println("第一次调用:" +Thread.interrupted());//true  main线程被中断了，所以返回true，并且重置为false
+        System.out.println("第二次调用:" +Thread.interrupted());//false  因为上一步被重置了
+    }
+
+    public static void test4(){
+        Thread myThread = new Thread(() -> {while(true){}});
+        myThread.start();
+        myThread.interrupt();
+        System.out.println("第一次调用:" +myThread.isInterrupted());//true
+        System.out.println("第二次调用:" +myThread.isInterrupted());//true
+    }
+
+    public static void test5(){
+        Thread myThread = new Thread(() -> {while(true){}});
+        myThread.start();
+        myThread.interrupt();
+        System.out.println("第一次调用:" +Thread.currentThread().isInterrupted());//false  获取main线程的中断标记
+        System.out.println("第二次调用:" +Thread.currentThread().isInterrupted());//false
+    }
+
+    public static void test6(){
+        Thread myThread = new Thread(() -> {while(true){}});
+        myThread.start();
+        Thread.currentThread().interrupt();
+        System.out.println("第一次调用:" + Thread.currentThread().isInterrupted());//true
+        System.out.println("第二次调用:" + Thread.currentThread().isInterrupted());//true
     }
 }

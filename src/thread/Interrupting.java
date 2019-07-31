@@ -71,23 +71,28 @@ public class Interrupting {
 
 
     static class SynchronizedBlocked implements Runnable {
+        /**
+         * 进行锁控制，如果下面构造方法没有注释，则代表试图获取锁等待锁场景；如果下面构造方法注释，则代表获取锁场景
+         */
         public synchronized void f(){
+            System.out.println("call yield()");
             while(true)
                 Thread.yield();//yield不会释放锁
         }
 
         //开启一个线程占有锁
-//        public SynchronizedBlocked(){
-//            new Thread(() -> {
-//                f();
-//            }).start();
-//        }
+        public SynchronizedBlocked(){
+            new Thread(() -> {
+                f();
+            }).start();
+        }
 
         @Override
         public void run(){
             while(!Thread.currentThread().isInterrupted()){
                 print("Trying to call f()");
                 f();
+                System.out.println("running");
             }
             print("Exiting SynchronizedBlocked.run()");
         }
