@@ -3,7 +3,7 @@ package comparion;
 import java.util.*;
 
 /**
- * @description: 自定义排序
+ * @description: 自定义排序， 需要引入一个额外的自定义顺序结构例如 list的下标， map的value
  * @author: zhangchaoyi
  * @date: 2019/6/10
  */
