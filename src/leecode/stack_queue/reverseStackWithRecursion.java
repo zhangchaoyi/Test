@@ -11,15 +11,14 @@ import java.util.Stack;
 public class reverseStackWithRecursion {
 
     public static Number getAndRemoveLastElement(Stack<Number> stack){
-        Number n = null;
-        if(stack.size() == 1){
-            return stack.pop();
-        } else {
-            n = stack.pop();//要将stack的元素出栈，size才能减1，递归才能进行；同时弹出的stack元素在递归的栈内存中
+        Number top = stack.pop();//要将stack的元素出栈，size才能减1，递归才能进行；同时弹出的stack元素在递归的栈内存中
+        if (stack.isEmpty()) {
+            return top;
         }
-        Number last = getAndRemoveLastElement(stack);
-        stack.push(n);
 
+        Number last = getAndRemoveLastElement(stack);
+
+        stack.push(top);
         return last;
     }
 
