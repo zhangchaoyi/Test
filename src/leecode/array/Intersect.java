@@ -7,10 +7,20 @@ import java.util.*;
  * 给定两个数组，写一个方法来计算它们的交集。
 
  例如:
- 给定 nums1 = [1, 2, 2, 1], nums2 = [2, 2], 返回 [2, 2].
+ 给定 nums1 = [1, 2, 2, 1], nums2 = [2, 2], 返回 [2, 2]. 返回共同的元素
  */
 public class Intersect {
 
+    /**
+     * 遍历num1，使用一个map保存每个数字出现的次数；遍历num2，使用一个map保存每个数字出现的次数
+     * 聚合两个map，取同一个数字key的len value较小的一项取出, 并且for
+     *
+     * 时间复杂度 N + N + (N的平方)  空间复杂度 2N
+     *
+     * @param nums1
+     * @param nums2
+     * @return
+     */
     public static int[] intersect(int[] nums1, int[] nums2) {
         if(nums1 == null || nums2 == null || nums1.length == 0 || nums2.length == 0) {
             return new int[0];
@@ -75,7 +85,7 @@ public class Intersect {
 
     public static void main(String[] args){
         int[] num1 = new int[]{1, 2, 2, 1};
-        int[] num2 = new int[]{2};
+        int[] num2 = new int[]{2, 2, 3, 1, 1};
 
         System.out.println(Arrays.toString(intersect(num1, num2)));
     }
