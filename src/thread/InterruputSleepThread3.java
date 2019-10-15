@@ -4,7 +4,9 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Created by zcy on 18-3-13.
- * 对于阻塞状态的线程 如果执行 t.interrupt(),会抛出InterruptedException，同时interrupt标志位复位
+ * 每个线程都有一个interrupted状态标志位，如果线程响应了中断会把interrupted设置为true，同时抛出InterruptedException
+ *
+ * 如果执行 t.interrupt(),会抛出InterruptedException，同时interrupt标志位复位
  * 解释：这是因为在sleep()中已经实现了检测线程中断机制，即检测
  *  if(isInterrupted()){
  *      Thread.interrupted();//进行获取线程中断并且重置中断标记位为false
@@ -27,7 +29,7 @@ public class InterruputSleepThread3 {
                 } catch (InterruptedException e) {
                     System.out.println("Interruted When Sleep");
                     boolean interrupt = this.isInterrupted();
-                    //中断状态被复位
+                    //中断状态在抛出exception时被复位
                     System.out.println("interrupt:"+interrupt);
                 }
             }
