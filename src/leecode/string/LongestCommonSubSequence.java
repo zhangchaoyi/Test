@@ -16,10 +16,13 @@ package leecode.string;
  *  5 0 0 0 0 0 0 0 0 1 0 0 0
  *  6 0 0 0 0 0 0 0 0 0 0 1 0
  *
- * 矩阵使用数据 z[][] 记录
- * 设置 dp[][]， dp[i][]代表记录 在遍历到z[i][j]下的最长公共子序列
- *
- * 动态规划，根据矩阵可知，只要满足 z[i][j] > z[k][n] (0<k<i , o<n<j) 有dp[i][j] > dp[k][n] + 1
+ *  dp[str1.length()][str2.length()]
+ *  dp[i][j] 表示 str1[0....i] 和 str2[0....j] 的最长公共子序列的长度
+ *  则满足 dp[i][j] = max{
+ *                      dp[i-1][j],
+ *                      dp[i][j-1],
+ *                      dp[i-1][j-1] + 1 ,(要求str[i]==str[j])
+ *                      }
  *
  * @author: zhangchaoyi
  * @date: 2019/10/16
