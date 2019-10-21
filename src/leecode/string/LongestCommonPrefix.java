@@ -2,7 +2,7 @@ package leecode.string;
 
 /**
  * Created by zcy on 18-5-30.
- * 编写一个函数来查找字符串数组中的最长公共前缀。
+ * 编写一个函数来查找字符串数组中的最长公共前缀。 O(N*N)
 
  如果不存在公共前缀，返回空字符串 ""。
  输入: ["flower","flow","flight"]
@@ -25,26 +25,28 @@ public class LongestCommonPrefix {
             }
         }
 
-        int i = 0;
+        //以第一个字符串为参照物，与字符数组中所有的字符串逐个字符比对
+        int curIndex = 0;
         boolean stop = false;
-        while(i < minLen && stop == false){
-            char c = strs[0].charAt(i);
+        String firstStr = strs[0];
+        while(curIndex < minLen && stop == false){
+            char c = firstStr.charAt(curIndex);
             for(int j = 1; j<strs.length; j++){
-                if(strs[j].charAt(i) != c){
+                if(strs[j].charAt(curIndex) != c){
                     stop = true;
                     break;
                 }
             }
-            i++;
+            curIndex++;
         }
-        if(stop == false && i == minLen){
-            return strs[0].substring(0, i);
+        if(stop == false && curIndex == minLen){
+            return strs[0].substring(0, curIndex);
         }
         if(stop == false){
             return "";
         }
-        System.out.println(i);
-        return strs[0].substring(0, i-1);
+        System.out.println(curIndex);
+        return strs[0].substring(0, curIndex-1);
     }
 
     public static void main(String[] args){

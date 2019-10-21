@@ -1,4 +1,4 @@
-package leecode.stack_queue;
+package leecode.DynamicPlanning.recursion;
 
 import java.util.Stack;
 

@@ -2,6 +2,7 @@ package leecode.string;
 
 /**
  * Created by chris on 5/13/18.
+ * left和right两头对换
  */
 public class reverseTest {
 

@@ -1,4 +1,4 @@
-package leecode.array;
+package leecode.DynamicPlanning;
 
 import java.util.Arrays;
 

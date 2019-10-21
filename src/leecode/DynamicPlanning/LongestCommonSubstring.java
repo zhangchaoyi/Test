@@ -1,4 +1,4 @@
-package leecode.string;
+package leecode.DynamicPlanning;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -12,6 +12,11 @@ import java.util.Map;
  返回 0.
  s = "loveleetcode",
  返回 2.
+
+ 1.借助一个map完成统计，时间复杂度O(N+N) 空间复杂度 O(N)
+
+ 2.遍历一次26个字母，使用s.indexOf() 和s.lastIndexOf() 获取该字符的首次出现位置和最后出现位置，如果两个位置相同则记录，同时维护一个最小值，最后返回该值
+
  */
 public class FirstUniqChar {
 
@@ -56,7 +61,7 @@ public class FirstUniqChar {
     }
 
     public static void main(String[] args){
-        String s = "lleettccooddee";
+        String s = "lleettccokoddee";
         System.out.println(firstUniqCharQ(s));
     }
 }

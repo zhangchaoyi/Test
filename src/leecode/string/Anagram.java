@@ -14,6 +14,9 @@ import java.util.Arrays;
 
  说明:
  你可以假设字符串只包含小写字母
+ 异位词的意思是相同的字母构成
+ 可以使用map，时间复杂度O(N), 空间复杂度O(N)  或者 如下使用数组记录26个字符出现的次数
+
  */
 public class Anagram {
 
@@ -33,6 +36,6 @@ public class Anagram {
 
     public static void main(String[] args){
         Anagram anagram = new Anagram();
-        System.out.println(anagram.isAnagram("anagrama", "nagaram"));
+        System.out.println(anagram.isAnagram("nagrama", "nagaram"));
     }
 }
