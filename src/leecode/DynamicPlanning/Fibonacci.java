@@ -18,6 +18,7 @@ public class Fibonacci {
 
     /**
      * 求矩阵m的p次方
+     * 将幂次转成2进制，比如 10101010111， 如果该位是1，才进行乘积相乘
      * @param m
      * @param p
      * @return
@@ -32,8 +33,10 @@ public class Fibonacci {
         int[][] tmp = m;
         for(;p!=0;p>>=1){
             if((p&1)!=0){
+                //如果该位是1，才进行次幂的乘积相乘
                 res = muliMatrix(res, tmp);
             }
+            //得到对应的次幂
             tmp = muliMatrix(tmp, tmp);
         }
         return tmp;
