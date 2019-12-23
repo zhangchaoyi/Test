@@ -1,6 +1,8 @@
 package daily;
 
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import static com.sun.xml.internal.fastinfoset.util.ValueArray.MAXIMUM_CAPACITY;
@@ -22,8 +24,13 @@ public class Test {
 //        a = Arrays.copyOf(a, 10);
 
 //        System.out.println(tableSizeFor(18));
-        HashMap<String, String> m = new HashMap<>(5);
-
+//        HashMap<String, String> m = new HashMap<>(5);
+        Date d = new Date();
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.DAY_OF_YEAR, -91);
+        System.out.println(d);
+        System.out.println(c.getTime());
+        System.out.println(d.compareTo(c.getTime()) < 0);
     }
 
     //hashmap初始算法要求 size都是2的n次幂
