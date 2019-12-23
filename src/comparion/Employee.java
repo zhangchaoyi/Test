@@ -7,6 +7,7 @@ public class Employee implements Comparable<Employee> {
     private String name;
     private int age;
     private String country;
+    private Business business;
 
     @Override
     public String toString() {
@@ -14,6 +15,7 @@ public class Employee implements Comparable<Employee> {
                 "name='" + name + '\'' +
                 ", age=" + age +
                 ", country='" + country + '\'' +
+                ", business='" + business + '\'' +
                 '}';
     }
 
@@ -41,10 +43,19 @@ public class Employee implements Comparable<Employee> {
         this.country = country;
     }
 
-    public Employee(String name, int age, String country) {
+    public Business getBusiness() {
+        return business;
+    }
+
+    public void setBusiness(Business business) {
+        this.business = business;
+    }
+
+    public Employee(String name, int age, String country, Business business) {
         this.name = name;
         this.age = age;
         this.country = country;
+        this.business = business;
     }
 
     @Override
