@@ -14,7 +14,7 @@ public class Reverse {
         return prev;
     }
 
-    private static ListNode reverseNode(ListNode l){
+    public static ListNode reverseNode(ListNode l){
         if (l == null)
         {
             return null;
