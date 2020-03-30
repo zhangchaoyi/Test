@@ -30,6 +30,7 @@ public class ComparableTest {
 
 //        System.out.println(employeeList.stream().anyMatch(_e -> list.contains(_e.getName())));
 
+        //list 中根据某个属性排序
         List<Employee> l = employeeList.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(Employee::getBusiness))),
                 ArrayList::new));
         System.out.println(l);
