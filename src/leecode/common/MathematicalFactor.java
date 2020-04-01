@@ -16,7 +16,10 @@ import java.util.*;
 public class MathematicalFactor {
 
     public static void main(String[] args){
+
         System.out.println(getAllFactors(16));
+
+
     }
 
     public static Set<Integer> getAllFactors(int num){
