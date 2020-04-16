@@ -56,9 +56,9 @@ package leetcode.DynamicPlanning;
 public class LongestWellPerformingInterval {
 
     public static void main(String[] args){
-        int[] hours = new int[]{6,6,9};
+        int[] hours = new int[]{9,9,6,0,6,6,9};
         LongestWellPerformingInterval longestWellPerformingInterval = new LongestWellPerformingInterval();
-         longestWellPerformingInterval.longestWPI(hours);
+        longestWellPerformingInterval.longestWPI(hours);
     }
 
     public int longestWPI(int[] hours) {
@@ -78,10 +78,13 @@ public class LongestWellPerformingInterval {
         int lIndex = 0;
         int rIndex = 0;
         int max = Integer.MIN_VALUE;
+        //dp用于保存(i,j) 区间内的和
         int[][] dp = new int[hours.length][hours.length];
         boolean existResult = false;
-        for(int j=0; j<arr.length; j++){
-            for(int i=0; i<=j ;i++){
+        //此处的两次for循环可以进行优化，内层遍历优化，
+        // 区间【i ， j， k】只要 prefixSum[k] > prefixSum[i] 那么 不需要考虑 （i，j），最长的为(i, k)
+        for(int i=0; i<arr.length; i++){
+            for(int j=i; j<arr.length ;j++){
                 //i==j 即数组该数本身
                 if (i==j) {
                     dp[i][j] = arr[i];
@@ -96,7 +99,7 @@ public class LongestWellPerformingInterval {
             }
         }
 
-        //遍历dp
+        //遍历dp，dp[i][j] > 0 则说明满足题目的区间，需要找出最大的区间即可
         for(int i=0;i<dp.length;i++){
             for(int j=0;j<dp[0].length;j++){
                 if (dp[i][j] > 0) {
