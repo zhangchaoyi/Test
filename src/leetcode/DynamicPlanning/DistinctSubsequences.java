@@ -50,6 +50,7 @@ public class DistinctSubsequences {
 
     public int distinctSubseqII(String S) {
         int[] dp = new int[S.length()+1];
+        //dp[0]代表空字符串
         dp[0] = 1;
         //记录相同字符的上一次的前一位下标
         int[] last = new int[26];
@@ -72,7 +73,7 @@ public class DistinctSubsequences {
 
     public static void main(String[] args){
         DistinctSubsequences ds = new DistinctSubsequences();
-        String s = "aa";
+        String s = "abcd";
         System.out.println(ds.distinctSubseqII(s));
     }
 }
