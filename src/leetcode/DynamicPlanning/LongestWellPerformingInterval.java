@@ -82,7 +82,7 @@ public class LongestWellPerformingInterval {
         int[][] dp = new int[hours.length][hours.length];
         boolean existResult = false;
         //此处的两次for循环可以进行优化，内层遍历优化，
-        // 区间【i ， j， k】只要 prefixSum[k] > prefixSum[i] 那么 不需要考虑 （i，j），最长的为(i, k)
+        // 区间【i ， j， k】只要 prefixSum[k] > prefixSum[i] 那么 不需要考虑 （i，j），最长的为(i, k) todo
         for(int i=0; i<arr.length; i++){
             for(int j=i; j<arr.length ;j++){
                 //i==j 即数组该数本身

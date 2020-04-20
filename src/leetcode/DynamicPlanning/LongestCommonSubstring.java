@@ -62,6 +62,10 @@ public class LongestCommonSubstring {
         char[] chs2 = str2.toCharArray();
         int[][] z = new int[str1.length()][str2.length()];
 
+        /*
+         * tempMax表示最长公共子串的数量
+         * 同时表示 z[][]中最大的数字
+         */
         int tempMax = 0;
         for(int i=0; i<chs1.length; i++) {
             for(int j=0; j<chs2.length; j++){
@@ -73,7 +77,9 @@ public class LongestCommonSubstring {
                 }
             }
         }
-
+        /*
+        找出所有的公共子串的最后一个位置
+         */
         List<Integer> indexStr1 = getMaxValueStr1CorList(z, tempMax);
         for(Integer i : indexStr1){
             System.out.println(str1.substring(i-tempMax+1, i+1));
@@ -90,6 +96,7 @@ public class LongestCommonSubstring {
 
     /**
      * 找出最大值的纵坐标
+     * 可能存在多个最长公共子串
      * @param z
      * @param max
      * @return
