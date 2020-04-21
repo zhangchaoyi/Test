@@ -93,12 +93,18 @@ public class KSimilarity {
     public List<String> neighbor(String curString, String B){
         List<String> ans = new ArrayList<>();
 
+        /*
+        找出不相等的元素
+         */
         int i=0;
         for(;i<curString.length();i++){
             if(!Objects.equals(curString.charAt(i), B.charAt(i))){
                 break;
             }
         }
+        /*
+        从后面的元素找出可以完成一次截断的字符串
+         */
         for(int j=i+1;j<curString.length();j++){
             if (Objects.equals(curString.charAt(j), B.charAt(i))) {
                 char[] charArray = curString.toCharArray();
