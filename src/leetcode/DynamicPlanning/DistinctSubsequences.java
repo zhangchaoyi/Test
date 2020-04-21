@@ -49,7 +49,9 @@ import java.util.Arrays;
 public class DistinctSubsequences {
 
     public int distinctSubseqII(String S) {
-        int[] dp = new int[S.length()+1];
+        //字符串S 拼接一个空格
+        S = " "+S;
+        int[] dp = new int[S.length()];
         //dp[0]代表空字符串
         dp[0] = 1;
         //记录相同字符的上一次的前一位下标
@@ -57,23 +59,23 @@ public class DistinctSubsequences {
         Arrays.fill(last, -1);
         char[] charArray = S.toCharArray();
 
-        for(int i=0;i<charArray.length;i++){
+        for(int i=1;i<charArray.length;i++){
             int x = S.charAt(i) - 'a';
-            dp[i+1] = dp[i] * 2;
+            dp[i] = dp[i-1] * 2;
             if (last[x] != -1) {
-                dp[i+1] -= dp[last[x]];
+                dp[i] -= dp[last[x]];
             }
 
-            last[x] = i;
+            last[x] = i-1;
         }
         //返回最后一位
         //-1表示减去空字符串
-        return dp[S.length()] - 1;
+        return dp[S.length()-1] - 1;
     }
 
     public static void main(String[] args){
         DistinctSubsequences ds = new DistinctSubsequences();
-        String s = "abcd";
+        String s = "abab";
         System.out.println(ds.distinctSubseqII(s));
     }
 }
