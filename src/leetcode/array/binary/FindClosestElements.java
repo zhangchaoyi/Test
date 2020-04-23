@@ -72,6 +72,7 @@ public class FindClosestElements {
     /**
      * 二分搜索
      * 边界： 初始 l=0， r=arr.length-1,  //取索引位置
+     *        l <= r
      *        int mid = (l+r)/2
      *        l=mid-1        r=mid+1
      * @param arr
@@ -88,7 +89,7 @@ public class FindClosestElements {
         }
         int l = 0;
         int r = arr.length-1;
-        while(l < r){
+        while(l <= r){
             int mid = (l+r)/2;
             if (arr[mid] == x) {
                 return mid;
@@ -113,16 +114,17 @@ public class FindClosestElements {
     public static void main(String[] args) {
         int[] arr = new int[]{0,0,1,2,3,3,4,7,7,8};
         FindClosestElements fce = new FindClosestElements();
-        System.out.println(fce.findClosestElements(arr, 3, 5));
-//        System.out.println(fce.binarySearch(arr, 1));
+//        System.out.println(fce.findClosestElements2(arr, 3, 5));
+        System.out.println(fce.binarySearch(arr, 2));
 //        List<Integer> list = Arrays.stream(arr).boxed().collect(Collectors.toList());
-//        System.out.println(Collections.binarySearch(list, 1));
+//        System.out.println(Collections.binarySearch(list, 2));
     }
 
 
     public List<Integer> findClosestElements2(int[] arr, int k, int x) {
         List<Integer> ret = Arrays.stream(arr).boxed().collect(Collectors.toList());
         Collections.sort(ret, (a,b) -> a == b ? a - b : Math.abs(a-x) - Math.abs(b-x));
+        System.out.println(ret);
         ret = ret.subList(0, k);
         Collections.sort(ret);
         return ret;
