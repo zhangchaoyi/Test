@@ -27,17 +27,18 @@ import java.util.*;
  *
  * 思路：可知 所求的最小正数 <= n+1 ， 因此将数组中的负数和大于n的数都转成 1
  *    转换后数组中的数都在 1，n 之间， 此时可以使用鸽巢原理标记出存在的数
- *
+ *    时间复杂度O(n) 空间复杂度O(n)
  * 类似hash的原理
  *
+ * 思路2： 原地处理，只考虑 [1,n]之间的数，并将它们数组原地归位， 可以处理重复元素
  */
 public class FirstMissingPositive {
 
     public static void main(String[] args){
-        int[] nums = new int[]{1};
+        int[] nums = new int[]{3,1,1,4};
 
         FirstMissingPositive fmp = new FirstMissingPositive();
-        System.out.println(fmp.firstMissingPositive2(nums));
+        System.out.println(fmp.firstMissingPositive3(nums));
 
     }
 
@@ -97,4 +98,39 @@ public class FirstMissingPositive {
 
         return -1;
     }
+
+
+    /**
+     * 原地处理
+     * 时间复杂度O(n), 空间复杂度O(1)
+     * @param nums
+     * @return
+     */
+    public int firstMissingPositive3(int[] nums) {
+        int len = nums.length;
+
+        for (int i = 0; i < len; i++) {
+            while (nums[i] > 0 && nums[i] <= len && nums[nums[i] - 1] != nums[i]) {
+                // 满足在指定范围内、并且没有放在正确的位置上，才交换
+                // 例如：数值 3 应该放在索引 2 的位置上
+                swap(nums, nums[i] - 1, i);
+            }
+        }
+
+        // [1, -1, 3, 4]
+        for (int i = 0; i < len; i++) {
+            if (nums[i] != i + 1) {
+                return i + 1;
+            }
+        }
+        // 都正确则返回数组长度 + 1
+        return len + 1;
+    }
+
+    private void swap(int[] nums, int index1, int index2) {
+        int temp = nums[index1];
+        nums[index1] = nums[index2];
+        nums[index2] = temp;
+    }
+
 }

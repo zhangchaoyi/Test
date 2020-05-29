@@ -8,7 +8,10 @@ import java.util.concurrent.TimeUnit;
  *
  * thread obj.interrupted()中断线程，设置线程的中断标记为true
  * thread obj.isInterrupted()进行查询线程的中断标记位
- * Thread.interrupted()用于获取线程的中断标记位并重置标记位为false
+ *
+ * Thread.interrupted() ====> 实际上 是 currentThread().isInterrupted(true);   用于获取线程的中断标记位并重置标记位为false
+ *
+ *
  * Thread.currentThread().isInterrupted()用于获取main线程中断标记位
  * Thread.currentThread().interrupted()用于中断main线程
  *
