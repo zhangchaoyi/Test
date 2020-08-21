@@ -1,7 +1,5 @@
 package util;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.io.File;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -15,7 +13,6 @@ import java.util.stream.Collectors;
  *
  * Created by za-hejun on 2018/4/28.
  */
-@Slf4j
 public class ImplementationUtils {
 
     private volatile static util.ImplementationUtils instance;
