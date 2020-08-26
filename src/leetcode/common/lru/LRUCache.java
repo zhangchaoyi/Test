@@ -29,6 +29,12 @@ import java.util.Map;
  *
  * @Author: chaoyi.zhang
  * @Date: 2020/8/26 14:12
+ *
+ *
+ * 第一次写的实现因为在check时需要对value进行排序 --数据量太大排序超出时间复杂度限制， 可以使用 map + queue进行改进，在get和put时维护queue，判断size从queue获取key维护map删除
+ * 可以使用LinkedHashMap进行实现，在get或put时把相同的key删除并放最后， size满时从头开始删  --linkedHashMap 非原生数据结构
+ *
+ *
  */
 public class LRUCache {
 
