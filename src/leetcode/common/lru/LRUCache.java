@@ -1,7 +1,6 @@
-package leetcode.common;
+package leetcode.common.lru;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
