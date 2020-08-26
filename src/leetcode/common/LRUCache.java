@@ -41,7 +41,7 @@ public class LRUCache {
 
     public LRUCache(int capacity) {
         this.capacity = capacity;
-        latestMap = new LinkedHashMap<>(capacity);
+        latestMap = new HashMap<>(capacity);
     }
 
     public int get(int key) {
