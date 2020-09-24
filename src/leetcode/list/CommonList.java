@@ -39,9 +39,10 @@ public class CommonList {
     }
 
     public static void main(String[] args){
-        ListNode head = initList(new int[]{0});
+        ListNode left = initList(new int[]{1,3,5,7});
+        ListNode right = initList(new int[]{2,4,6});
 
-        System.out.println(cut(head, 2));
+        System.out.println(mergeSortedListRecursion(left, right));
     }
 
     public static ListNode initList(int[] array){
@@ -83,6 +84,23 @@ public class CommonList {
         }
 
         return newHead.next;
+    }
+
+    public static ListNode mergeSortedListRecursion(ListNode left, ListNode right){
+        if(Objects.isNull(left)){
+            return right;
+        }
+        if (Objects.isNull(right)) {
+            return left;
+        }
+        if(left.val < right.val) {
+            left.next = mergeSortedListRecursion(left.next, right);
+            return left;
+        } else {
+            right.next = mergeSortedListRecursion(left, right.next);
+            return right;
+        }
+
     }
 
     /**
