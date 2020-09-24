@@ -13,8 +13,10 @@ import java.util.Arrays;
  *
  *  快排 从小到大 和 从大到小 的区别在于比较时的 小于 还是 大于
  *
- *  平均时间复杂度 O(n * logn)，最优的情况是，每次partion都能返回当前子数组的中间位置
+ *  平均时间复杂度 O(n * logn)，最优的情况是，每次partion都能返回当前子数组的中间位置, -- 一次递归快排O(n), 递归进行O(logn)次
  *  最坏时间复杂度 O(n * n)  数组有序，每次partion的位置都在数组两侧，这样往下递归时少了一个数组
+ *
+ *  空间复杂度：O(logn)，  原地排序, 主要消耗是递归的栈深度 O(logn) 次
  *
  *  不稳定 体现在 swap上，当unvisited中出现比挡板小的元素时会取 higher区间第一个元素交互
  *  p | lower | higher | unvisited

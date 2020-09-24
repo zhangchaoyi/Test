@@ -3,13 +3,13 @@ package leetcode.array.sort;
 import java.util.Arrays;
 
 /**
- * 归并排序  先递归再排序
- * 把数组递归拆分为多个部分，直到每个数字
- * 再进行两两合并排序
+ * 归并排序
+ * 把数组递归拆分为多个部分，直到每个元素
+ * 再进行两两二路归并合并排序
  *
  *  稳定排序
- * 平均时间复杂度 O(n * logn), 最坏时间复杂度 O(n * logn)
- *  空间复杂度 O(n)
+ * 平均时间复杂度 O(n * logn), 最坏时间复杂度 O(n * logn)，-- 一次排序是O(n), * 递归深度是O(logn)
+ *  空间复杂度 O(n + logn) = O(n)   -- 二路归并时额外申请一个数组空间 O(n), + 递归深度O(logn)
  *
  *  缺点是递归消耗内部空间
  */
@@ -53,8 +53,9 @@ public class MergeSort {
         //两部分数组作插入元数组完成部分排序
         int left = 0;
         int right = 0;
-        int index = start;
+        int index = start;//从原数组的start位置开始进行二路归并插入
 
+        //因为上面初始化了边界，可以需考虑left/right为空的情况
         while(left < leftPart.length-1 || right  < rightPart.length-1){
             if(leftPart[left] < rightPart[right]){
                 nums[index++] = leftPart[left];
