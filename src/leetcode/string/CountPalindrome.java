@@ -24,10 +24,56 @@ package leetcode.string;
  */
 public class CountPalindrome {
 
+    private int num;
+
     public int countSubstrings(String s) {
-//        for(){}
-        return 0;
+        char[] array = s.toCharArray();
+        for(int i=0;i<array.length;i++){
+            num++;
+            countOdd(s, i);
+            countEven(s, i);
+        }
+        return num;
     }
 
-    public static void main(String[] args){}
+    /**
+     * 统计以 i 为中心的回文数
+     * @param s
+     * @param i
+     */
+    private void countOdd(String s, int i){
+        char[] array = s.toCharArray();
+        int left = i-1;
+        int right = i+1;
+        while(left>=0 && right<array.length && array[left] == array[right]){
+            num++;
+            left--;
+            right++;
+        }
+    }
+
+    private void countEven(String s, int i){
+        char[] array = s.toCharArray();
+        //判断char[i+1]==char[i], 确定是否偶数的回文
+        if (i>=array.length-1) {
+            return;
+        }
+        if(array[i] != array[i+1]){
+            return;
+        }
+        num++;
+        int left = i-1;
+        int right = i+2;
+        while(left>=0 && right<array.length && array[left] == array[right]){
+            num++;
+            left--;
+            right++;
+        }
+    }
+
+    public static void main(String[] args){
+        String s = "abc";
+        CountPalindrome countPalindrome = new CountPalindrome();
+        System.out.println(countPalindrome.countSubstrings(s));
+    }
 }
