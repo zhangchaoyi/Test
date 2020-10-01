@@ -10,13 +10,15 @@ package leetcode.array;
  *
  * 思路1：
  * 对于数组中的每个数 arr[i] , lmax 代表 i 左侧最大的数， rmax代表 i 右侧最大的数
- * 则 i 能接的雨水是 min{arr[lmax], arr[rmax]} - arr[i]
+ * 则 i 能接的雨水是 min{lmax, rmax} - arr[i]
  *  此思路下使用暴力破解法 时间复杂度O(n * n)
- *  优化使用备忘录先提前记录一次 i 的 lmax 和 rmax ，时间复杂度 O(n) ， 空间复杂度 O(n)
+ *
+ *  优化使用备忘录先提前记录一次当前位置 i 的 lmax 和 rmax ，时间复杂度 O(n) ， 空间复杂度 O(n)
+ *  然后min{lmax[i], rmax[i]} - arr[i], (lmax[i] > arr[i] & rmax[i] > arr[i])   总共遍历3次  O(n)*3
  *
  * 思路2：
  * 每一次处理找出 0 的数字，以及左 右游标从 i 向两边出发，找出 大于的数，如果有则记录为 1 滴雨水
- * 然后数组整体减 1 ，继续同样的遍历判断
+ * 然后数组整体减 1 ，继续同样的遍历判断 O(n^3)
  *
  * 思路3：
  * 双向指针遍历，定义 left 、right 两个游标，定义 lmax 和 rmax 分别代表左边最大的数和右边最大的数
