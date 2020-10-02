@@ -25,8 +25,8 @@ import java.util.List;
 public class MedianSortedArray {
 
     public static void main(String[] args) {
-        int[] nums1 = new int[]{2};
-        int[] nums2 = new int[]{};
+        int[] nums1 = new int[]{1,2};
+        int[] nums2 = new int[]{3,4};
 
         System.out.println(findMedianSortedArrays(nums1, nums2));
     }
@@ -66,9 +66,8 @@ public class MedianSortedArray {
         }
 
         if(even){
-            BigDecimal bigDecimal1 = new BigDecimal(temp.get(temp.size() - 1) + temp.get(temp.size() - 2));
-            BigDecimal bigDecimal2 = bigDecimal1.divide(new BigDecimal(2));
-            return bigDecimal2.doubleValue();
+            double result = temp.get(temp.size() - 1) + temp.get(temp.size() - 2);
+            return result/2;
         } else {
             return temp.get(temp.size() - 1);
         }
