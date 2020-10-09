@@ -1,8 +1,11 @@
 package leetcode.tree;
 
+import java.util.Queue;
 import java.util.Stack;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
+ * 非递归遍历
  * Created by zcy on 18-5-17.
  */
 public class NoRecursiveTraversal {
@@ -46,10 +49,12 @@ public class NoRecursiveTraversal {
         Stack<TreeNode> s = new Stack<>();
 
         while(root != null || !s.empty()){
+            //不断对左子树节点压栈
             while(root != null){
                 s.push(root);
                 root = root.left;
             }
+            //弹栈后不断赋值右子树
             root = s.pop();
             visit(root);
             root = root.right;
@@ -58,6 +63,34 @@ public class NoRecursiveTraversal {
 
     public static void visit(TreeNode treeNode){
         System.out.println(treeNode.val);
+    }
+
+    /**
+     * 借助一个队列，层次进行遍历
+     * @param root
+     */
+    public static void bfs(TreeNode root){
+        Queue<TreeNode> queue = new LinkedBlockingQueue();
+        queue.add(root);
+
+        while(!queue.isEmpty()){
+            TreeNode curNode = queue.poll();
+            visit(curNode);
+            if(curNode.left != null){
+                queue.add(curNode.left);
+            }
+            if(curNode.right != null){
+                queue.add(curNode.right);
+            }
+        }
+    }
+
+    /**
+     * 即前、中、后序遍历
+     * @param root
+     */
+    public static void dfs(TreeNode root){
+
     }
 
     public static void main(String[] args){
@@ -78,6 +111,7 @@ public class NoRecursiveTraversal {
         Rr.right = Rrr;
 
 //        pre(root);
-        pre2(root);
+//        pre2(root);
+        bfs(root);
     }
 }
