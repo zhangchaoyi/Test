@@ -2,6 +2,7 @@ package leetcode.DynamicPlanning;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Stack;
 
 /**
  * 32. 最长有效括号
@@ -26,34 +27,27 @@ public class LongestValidParentheses {
 
     public static void main(String[] args){
         String s = ")()())";
-        char[] chars = s.toCharArray();
-        //maxLength[i]表示以i开头的最长有效括号长度
-        int[] maxLength = new int[chars.length];
-        int maxLen = 0;
-        for(int i=0;i<chars.length;i++){
-            char last = chars[i];
-            if (Objects.equals(last, ')')) {
-                maxLength[i]=0;
-                continue;
-            }
-            int curMaxLen = 1;
-            for(int j=i+1;j<chars.length;j++){
-                if (Objects.equals(last, '(') && Objects.equals(chars[j], ')')) {
-                    curMaxLen++;
-                } else if(Objects.equals(last, ')') && Objects.equals(chars[j], '(') && curMaxLen > 0){
-                    curMaxLen++;
-                }
-                last = chars[j];
-            }
-            if(curMaxLen > maxLen){
-                maxLen = curMaxLen;
-            }
-            maxLength[i]=curMaxLen;
-        }
-
-        System.out.println(Arrays.toString(maxLength));
-        System.out.println(maxLen);
+        LongestValidParentheses lv = new LongestValidParentheses();
+        lv.longestValidParentheses(s);
     }
 
+    /**
+     * https://leetcode-cn.com/problems/longest-valid-parentheses/solution/dong-tai-gui-hua-si-lu-xiang-jie-c-by-zhanganan042/
+     *
+     * if s[i] == '(' :
+     *     dp[i] = 0
+     * if s[i] == ')' :
+     *     if s[i - 1] == '(' :
+     *         dp[i] = dp[i - 2] + 2 #要保证i - 2 >= 0
+     *
+     *     if s[i - 1] == ')' and s[i - dp[i - 1] - 1] == '(' :
+     *         dp[i] = dp[i - 1] + dp[i - dp[i - 1] - 2] + 2 #要保证i - dp[i - 1] - 2 >= 0
+     *
+     * @param s
+     * @return
+     */
+    public int longestValidParentheses(String s) {
+
+    }
 
 }
