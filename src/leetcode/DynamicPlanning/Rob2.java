@@ -35,7 +35,7 @@ public class Rob2 {
 
     public int[] getDp(int[] nums, int start, int end){
         int size = end-start+1;
-        int[] dp = new int[size+1];//多申请1位空间
+        int[] dp = new int[size+1];//多申请1位空间, 为了与原数组的下标保持一致，防止下标溢出
         for(int i=start;i<=end;i++){
             if (i==start) {
                 dp[i]=nums[i];

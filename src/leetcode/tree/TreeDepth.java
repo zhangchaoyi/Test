@@ -32,7 +32,7 @@ public class TreeDepth {
     }
 
     /**
-     * 递归, max{左子树的最大深度， 右子树的最大深度} + 1
+     * dfs递归, max{左子树的最大深度， 右子树的最大深度} + 1
      * @param root
      * @return
      */
@@ -42,7 +42,7 @@ public class TreeDepth {
         }
         int leftDepth = depth(root.left);
         int rightDepth = depth(root.right);
-        return ((leftDepth > rightDepth)?leftDepth:rightDepth)+1;
+        return Math.max(leftDepth, rightDepth)+1;
     }
 
     /**
