@@ -47,8 +47,8 @@ public class CountOfSmallerNumbersAfterSelf {
 
         CountOfSmallerNumbersAfterSelf c = new CountOfSmallerNumbersAfterSelf();
 
-//        System.out.println(c.countSmaller(nums));
-        System.out.println(c.countSmallerWithBst(nums));
+        System.out.println(c.countSmaller(nums));
+//        System.out.println(c.countSmallerWithBst(nums));
     }
 
     public List<Integer> countSmaller(int[] nums) {
@@ -56,6 +56,7 @@ public class CountOfSmallerNumbersAfterSelf {
         Integer[] result = new Integer[nums.length];
 
         for(int i=nums.length-1;i>=0;i--){
+            //每次二分搜索找到待插入list的位置下标
             int left = 0;
             int right = temp.size();
             while (left < right) {
