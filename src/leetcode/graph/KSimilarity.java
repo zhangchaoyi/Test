@@ -52,23 +52,33 @@ public class KSimilarity {
         System.out.println(kSimilarity.kSimilaritySolution(A, B));
     }
 
+    /**
+     * 计算k相似度
+     * @param A  原始字符串
+     * @param B  目标字符串
+     * @return
+     */
     public int kSimilaritySolution(String A, String B) {
         Queue<String> queue = new ArrayDeque<>();
         //字典map 与 queue永远是 1对1 存在
+        //map用户记录字符串的相似度
+        //queue保存待执行的字符串
         Map<String, Integer> stringMap = new HashMap<>();
         stringMap.put(A, 0);
         queue.add(A);
 
         while(!queue.isEmpty()){
             String curString = queue.poll();
+            //找到目标字符串就返回k相似度
             if(Objects.equals(curString, B)){
                 return stringMap.get(curString);
             }
+            //找出当前字符串与目标字符串可能的 一次换位 的所有潜在字符串
             List<String> ans = neighbor(curString, B);
-
+            //对于已经出现过的字符串可以丢弃
             for(String s : ans){
                 if (!stringMap.containsKey(s)) {
-                    stringMap.put(s, stringMap.get(curString)+1);
+                    stringMap.put(s, stringMap.get(curString)+1);//累计当次基础相似度
                     queue.add(s);
                 }
             }
@@ -84,6 +94,7 @@ public class KSimilarity {
     }
 
     /**
+     * 一次广度搜索
      * 对curString进行一次截断，找出一次截断可能存在的多个交换后字符串
      *
      * @param curString
