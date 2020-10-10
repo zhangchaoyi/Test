@@ -22,10 +22,46 @@ package leetcode.DynamicPlanning;
  *      偷窃到的最高金额 = 1 + 3 = 4 。
  *
  *  Rob的变形，设置两个dp1、dp2， 一个求 [0...n-1], 另一个求[1...n] , 再 max{dp1, dp2} 即可
+ *  dp[i] = max{dp[i-1], dp[i-2]+num[i]}
+ *  result[i] = max{dp[0...i-1], dp[1, i]}
  */
 public class Rob2 {
 
     public static void main(String[] args){
+        int[] array = new int[]{1,2,3,1};
+        Rob2 rob2 = new Rob2();
+        System.out.println(rob2.rob(array));
+    }
 
+    public int[] getDp(int[] nums, int start, int end){
+        int size = end-start+1;
+        int[] dp = new int[size];
+        for(int i=0;i<size;i++){
+            if (i==0) {
+                dp[0]=nums[0];
+            } else if(i==1){
+                dp[1]=nums[0]>nums[1]?nums[0]:nums[1];
+            } else {
+                dp[i] = dp[i-1] > (dp[i-2]+nums[i]) ? dp[i-1] : (dp[i-2]+nums[i]);
+            }
+        }
+        return dp;
+    }
+
+    public int rob(int[] nums) {
+        if(nums.length==0){
+            return 0;
+        }
+        int[] dp1 = getDp(nums, 0, nums.length-2);
+        int[] dp2 = getDp(nums, 1, nums.length-1);
+
+        int max = 0;
+        for(int i=0;i<dp1.length;i++){
+            int maxDp = dp1[i] > dp2[i] ? dp1[i] : dp2[i];
+            if(maxDp > max){
+                max = maxDp;
+            }
+        }
+        return max;
     }
 }
