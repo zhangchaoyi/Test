@@ -28,19 +28,19 @@ package leetcode.DynamicPlanning;
 public class Rob2 {
 
     public static void main(String[] args){
-        int[] array = new int[]{1,2,3,1};
+        int[] array = new int[]{1, 2 ,1, 1};
         Rob2 rob2 = new Rob2();
         System.out.println(rob2.rob(array));
     }
 
     public int[] getDp(int[] nums, int start, int end){
         int size = end-start+1;
-        int[] dp = new int[size];
-        for(int i=0;i<size;i++){
-            if (i==0) {
-                dp[0]=nums[0];
-            } else if(i==1){
-                dp[1]=nums[0]>nums[1]?nums[0]:nums[1];
+        int[] dp = new int[size+1];//多申请1位空间
+        for(int i=start;i<=end;i++){
+            if (i==start) {
+                dp[i]=nums[i];
+            } else if(i==start+1){
+                dp[start+1]=nums[start]>nums[start+1]?nums[start]:nums[start+1];
             } else {
                 dp[i] = dp[i-1] > (dp[i-2]+nums[i]) ? dp[i-1] : (dp[i-2]+nums[i]);
             }
@@ -51,6 +51,12 @@ public class Rob2 {
     public int rob(int[] nums) {
         if(nums.length==0){
             return 0;
+        }
+        if(nums.length == 1){
+            return nums[0];
+        }
+        if(nums.length == 2){
+            return nums[0] > nums[1] ? nums[0] : nums[1];
         }
         int[] dp1 = getDp(nums, 0, nums.length-2);
         int[] dp2 = getDp(nums, 1, nums.length-1);

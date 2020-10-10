@@ -37,7 +37,7 @@ package leetcode.graph;
 public class NumsIsland {
 
     public int numsIsland(char[][] grid){
-        if (grid == null) {
+        if (grid == null||grid.length==0) {
             return 0;
         }
         int result=0;
