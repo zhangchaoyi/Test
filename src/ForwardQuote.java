@@ -6,7 +6,6 @@ import java.util.LinkedList;
  * java向前引用
  */
 public class ForwardQuote {
-
     int method() {return n; }
     int m = method();
     int n = 1;
