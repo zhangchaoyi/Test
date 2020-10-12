@@ -28,6 +28,7 @@ import java.util.List;
  *       在逐行进行边界判断区间合并 保存区间
  *       lastHead & lastTail 进行上一次的保存, 与当次循环 curHead & curTail 进行边界判断更新 lastHead/lastTail
  *
+ *  排序时间复杂度 O(nlogn) + 一次线性扫描
  * @Author: chaoyi.zhang
  * @Date: 2020/10/12 13:45
  */
