@@ -19,7 +19,7 @@ public class Reverse {
         {
             return null;
         }
-
+        //记录翻转后的最后一个节点
         ListNode reverseHead = null;
         // 指针1：当前节点
         ListNode currentNode = l;
