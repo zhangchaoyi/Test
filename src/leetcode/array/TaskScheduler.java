@@ -20,10 +20,11 @@ import java.util.stream.Collectors;
  * 解释：A -> B -> (待命) -> A -> B -> (待命) -> A -> B.
  * 在本示例中，两个相同类型任务之间必须间隔长度为 n = 2 的冷却时间，而执行一个任务只需要一个单位时间，所以中间出现了（待命）状态。
  *
- * 思路：将task任务进行重新排序，使用map进行分类，类似桶排序思想
+ * 思路：暴力破解：将task任务进行重新排序，使用map进行分类，类似桶排序思想
  *      根据value倒序排序
- *      不同的元素进行取值，每轮取 n+1 个任务，直到取完所有的任务，每轮取完后需要按value排序
+ *      每轮取 n+1 个不同的元素，每轮取完后map需要按value排序，直到取完所有的任务
  *      可以通过测试用例，只是超出时间限制
+ *==========================================================================================
  *
  * @Author: chaoyi.zhang
  * @Date: 2020/10/12 17:33
@@ -101,8 +102,7 @@ public class TaskScheduler {
         //重新根据value排序
         Map<String, Integer> newMap = new LinkedHashMap<>();
         taskCounter.entrySet().stream()
-                .sorted(Collections.reverseOrder(Map.Entry
-                        .comparingByValue()))
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
                 .forEachOrdered(b->newMap.put(b.getKey(), b.getValue()));
         taskCounter = newMap;
     }
@@ -111,7 +111,43 @@ public class TaskScheduler {
         TaskScheduler taskScheduler = new TaskScheduler();
         //["A","A","A","B","B","B", "C","C","C", "D", "D", "E"]
         //2
-        char[] array = new char[]{'A', 'A', 'A', 'B', 'B', 'B'};
-        System.out.println(taskScheduler.leastInterval(array, 1));
+        char[] array = new char[]{'A', 'A', 'A', 'B', 'B', 'B', 'C', 'C', 'D', 'D', 'E', 'F','F', 'G'}; //nums > n+1
+        System.out.println(taskScheduler.leastInterval1(array, 6));
+    }
+
+    /**
+     * 取巧思路：先按map进行分类以及倒序排序， 然后相当于进行填充大小为 n+1 的桶， 桶纵向数量是数量最多的任务个数 map[0]
+     * 1.当填充不满时
+     * (map[0]-1) * (n+1) + 最后一行的数量（最后一行即与map[0]相等的元素）
+     *   ... n+1 ...
+     * .  A B C E
+     * .  A B C ?
+     * .  A ? ? ?
+     * .  A # # #
+     *
+     *  2.如果填充满且元素种类比较多 即tasks的长度length
+     * @param tasks
+     * @param n
+     * @return
+     */
+    private int leastInterval1(char[] tasks, int n) {
+        int len=tasks.length;
+        int[] map = new int[26];
+        for(char c:tasks) map[c-'A']++;
+
+        Arrays.sort(map);
+        map=reverse(map);
+
+        int cnt=1;
+        while(cnt<map.length&&map[cnt]==map[0]) cnt++;
+        return Math.max(len, cnt+(n+1)*(map[0]-1));
+    }
+
+    int[] reverse(int[] map){
+        int[] newArray = new int[map.length];
+        for(int i=0;i<map.length;i++){
+            newArray[map.length-1-i]=map[i];
+        }
+        return newArray;
     }
 }
