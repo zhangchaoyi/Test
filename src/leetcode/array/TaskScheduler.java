@@ -1,0 +1,117 @@
+package leetcode.array;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+/**
+ * 621. 任务调度器
+ *
+ * 给定一个用字符数组表示的 CPU 需要执行的任务列表。其中包含使用大写的 A - Z 字母表示的26 种不同种类的任务。任务可以以任意顺序执行，并且每个任务都可以在 1 个单位时间内执行完。CPU 在任何一个单位时间内都可以执行一个任务，或者在待命状态。
+ *
+ * 然而，两个相同种类的任务之间必须有长度为 n 的冷却时间，因此至少有连续 n 个单位时间内 CPU 在执行不同的任务，或者在待命状态。 -- 说明相同类型的任务之间隔着n
+ *
+ * 你需要计算完成所有任务所需要的最短时间。
+ *
+ *
+ * 示例 ：
+ *
+ * 输入：tasks = ["A","A","A","B","B","B"], n = 2
+ * 输出：8
+ * 解释：A -> B -> (待命) -> A -> B -> (待命) -> A -> B.
+ * 在本示例中，两个相同类型任务之间必须间隔长度为 n = 2 的冷却时间，而执行一个任务只需要一个单位时间，所以中间出现了（待命）状态。
+ *
+ * 思路：将task任务进行重新排序，使用map进行分类，类似桶排序思想
+ *      根据value倒序排序
+ *      不同的元素进行取值，每轮取 n+1 个任务，直到取完所有的任务，每轮取完后需要按value排序
+ *      可以通过测试用例，只是超出时间限制
+ *
+ * @Author: chaoyi.zhang
+ * @Date: 2020/10/12 17:33
+ */
+public class TaskScheduler {
+
+    Map<String, Integer> taskCounter = new LinkedHashMap<>();
+    int remainTask;
+
+    public int leastInterval(char[] tasks, int n) {
+        //
+        //取出时可以取其他种类的任务或者待命进行填充到n，一直到所有任务都完成
+
+        if(tasks==null || tasks.length==0){
+            return 0;
+        }
+        if(n==0){
+            return tasks.length;
+        }
+
+        remainTask = tasks.length;
+
+        //init map
+        for(char c : tasks){
+            taskCounter.put(String.valueOf(c), taskCounter.getOrDefault(String.valueOf(c), 0)+1);
+        }
+
+        sortByValue();
+
+        List<String> result = new ArrayList<>();
+        while(taskCounter.size() > 0 && remainTask > 0){
+            List<String> keySetList = getKeySetList();
+
+            //不同类型的key数量是否 > n
+            if(keySetList.size() >= n+1){
+                List<String> subList = keySetList.subList(0, n+1);
+                result.addAll(subList);
+                subCountOrRemove(subList);
+            } else {
+                result.addAll(keySetList);
+                subCountOrRemove(keySetList);
+                //判断剩余任务和n关系判断是否终止
+                if(remainTask > 0){
+                    int remainWaiting = n+1 - keySetList.size();
+                    for(int i=0;i<remainWaiting;i++){
+                        result.add("待命");
+                    }
+                }
+            }
+        }
+
+        System.out.println(result);
+        return result.size();
+    }
+
+    private List<String> getKeySetList(){
+        Set<String> keySet = taskCounter.keySet();
+        return keySet.stream().collect(Collectors.toList());
+    }
+
+    private void subCountOrRemove(List<String> targetKeyList){
+        for(String targetKey : targetKeyList){
+            Integer times = taskCounter.get(targetKey);
+            if(times == 1){
+                taskCounter.remove(targetKey);
+            } else {
+                taskCounter.put(targetKey, times-1);
+            }
+        }
+        remainTask -= targetKeyList.size();
+        sortByValue();
+    }
+
+    private void sortByValue(){
+        //重新根据value排序
+        Map<String, Integer> newMap = new LinkedHashMap<>();
+        taskCounter.entrySet().stream()
+                .sorted(Collections.reverseOrder(Map.Entry
+                        .comparingByValue()))
+                .forEachOrdered(b->newMap.put(b.getKey(), b.getValue()));
+        taskCounter = newMap;
+    }
+
+    public static void main(String[] args){
+        TaskScheduler taskScheduler = new TaskScheduler();
+        //["A","A","A","B","B","B", "C","C","C", "D", "D", "E"]
+        //2
+        char[] array = new char[]{'A', 'A', 'A', 'B', 'B', 'B'};
+        System.out.println(taskScheduler.leastInterval(array, 1));
+    }
+}

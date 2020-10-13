@@ -42,4 +42,15 @@ public class BitTest {
     public static int getRemainder(int h, int len){
         return h&(len-1);
     }
+
+    /**
+     * 判断十进制数字 num 转为二进制后 在 position 的数字是 1/0
+     * 将num右移 (position-1) 即将position位放到第一位， 此时再和 0001 做与运算
+     * @param num 十进制数
+     * @param position 二进制第几位
+     * @return
+     */
+    public static int getBit(int num, int position){
+        return (num >> (position-1)) & 1;
+    }
 }
