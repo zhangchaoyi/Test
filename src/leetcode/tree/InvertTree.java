@@ -49,38 +49,39 @@ public class InvertTree {
 
     public static void main(String[] args){
         InvertTree it = new InvertTree();
-        TreeNode treeNode = it.invertTreeNoRecursive(root);
-        RecursivePre.pre(treeNode);
+//        TreeNode treeNode = it.invertTreeNoRecursive(root);
+        it.invertTree(root);
+        RecursivePre.pre(root);
     }
 
-//    public void invertTree(TreeNode treeNode){
-//        if(treeNode == null){
-//            return;
-//        }
-//        TreeNode tempLeft = treeNode.left;
-//        TreeNode tempRight = treeNode.right;
-//
-//        treeNode.left = tempRight;
-//        treeNode.right = tempLeft;
-//
-//        invertTree(treeNode.left);
-//        invertTree(treeNode.right);
-//
-//    }
+    public void invertTree(TreeNode treeNode){
+        if(treeNode == null){
+            return;
+        }
+        TreeNode tempLeft = treeNode.left;
+        TreeNode tempRight = treeNode.right;
+
+        treeNode.left = tempRight;
+        treeNode.right = tempLeft;
+
+        invertTree(treeNode.left);
+        invertTree(treeNode.right);
+
+    }
 
     /**
      * 递归写法
      * @param root
      * @return
      */
-    public TreeNode invertTree(TreeNode root){
-        if (root != null) {
-            TreeNode tempLeft = root.left;
-            root.left = invertTree(root.right);
-            root.right = invertTree(tempLeft);
-        }
-        return root;
-    }
+//    public TreeNode invertTree(TreeNode root){
+//        if (root != null) {
+//            TreeNode tempLeft = root.left;
+//            root.left = invertTree(root.right);
+//            root.right = invertTree(tempLeft);
+//        }
+//        return root;
+//    }
 
     /**
      * 非递归写法, 广度优先遍历

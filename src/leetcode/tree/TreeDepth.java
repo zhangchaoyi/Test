@@ -56,6 +56,9 @@ public class TreeDepth {
         }
         Queue<TreeNode> queue = new LinkedBlockingQueue();
         queue.add(root);
+        /**
+         * 记录每一层的个数
+         */
         int curLevelSize = 1;
         int depth = 0;
 

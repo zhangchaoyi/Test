@@ -53,27 +53,51 @@ public class MaxPathSum {
     }
 
     /**
-     *
+     * leetcode官方解答
      * 在方法中需要计算当前节点的最大路径值并更新max
      * @param node
      * @return  返回每个节点对上一层节点的最大路径贡献值
+     */
+//    public int dfs(TreeNode node){
+//        if (node == null) {
+//            return 0;
+//        }
+//        //左右子树的贡献为负数时不处理
+//        int left = Math.max(dfs(node.left), 0);
+//        int right = Math.max(dfs(node.right), 0);
+//
+//        //计算当前节点的最大路径和, 计算时对于负数的子路径不处理
+//        int curMax = left + right + node.val;
+//        if(curMax > max){
+//            max = curMax;
+//        }
+//
+//        //本次递归对上一层的贡献是 左或右 中较大的
+//        return Math.max(left, right) + node.val;
+//    }
+
+    /**
+     * 在方法中需要计算当前节点的最大路径值并更新max
+     * @param node
+     * @return  返回每个节点对上一层节点的最大路径贡献值，要求不能为负数，因为如果当前节点为负数，那么他对上层节点的贡献为0
      */
     public int dfs(TreeNode node){
         if (node == null) {
             return 0;
         }
         //左右子树的贡献为负数时不处理
-        int left = Math.max(dfs(node.left), 0);
-        int right = Math.max(dfs(node.right), 0);
+        int left = dfs(node.left);
+        int right = dfs(node.right);
 
-        //计算当前节点的最大路径和, 计算时对于负数的子路径不处理
+        //计算当前节点的最大路径和=左子节点贡献 + 右子节点贡献 + 当前节点值
+        //左右子节点贡献如果为负数则为0
         int curMax = left + right + node.val;
         if(curMax > max){
             max = curMax;
         }
 
-        //本次递归对上一层的贡献是 左或右 中较大的
-        return Math.max(left, right) + node.val;
+        //本次递归对上一层的贡献是 左或右 中较大的，贡献不为负数
+        return Math.max(Math.max(left, right) + node.val, 0);
     }
 
 
