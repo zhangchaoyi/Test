@@ -1,6 +1,49 @@
 package leetcode.DynamicPlanning;
 
+import java.util.Arrays;
+
 /**
+ * 322. 零钱兑换
+ * 给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回 -1。
+ *
+ * 你可以认为每种硬币的数量是无限的。
+ *
+ * 示例 1：
+ * 输入：coins = [1, 2, 5], amount = 11
+ * 输出：3
+ * 解释：11 = 5 + 5 + 1
+ *
+ * 示例 2：
+ * 输入：coins = [2], amount = 3
+ * 输出：-1
+ *
+ * 示例 3：
+ * 输入：coins = [1], amount = 0
+ * 输出：0
+ *
+ * 示例 4：
+ * 输入：coins = [1], amount = 1
+ * 输出：1
+ *
+ * 示例 5：
+ * 输入：coins = [1], amount = 2
+ * 输出：2
+ *  
+ *
+ * 提示：
+ *
+ * 1 <= coins.length <= 12
+ * 1 <= coins[i] <= 2^31 - 1
+ * 0 <= amount <= 10^4
+ * =============================================================================================================================
+ * 官方思路：
+ * dp[i] 表示组成i元的最少货币数, 则考虑最后一张组成的货币可能是arr[0..j]的其中一种
+ * dp[i] = min{dp[i-coins[j]] + 1， (0<=j<=coins.length && i>=coins[j])} , 表示dp[i]由所有最后一张货币的情况中的最小值 +1 ；
+ * dp[length-1]即所求值
+ * dp[0]=0
+ *
+ * =============================================================================================================================
+ * 书本思路：
  * @description:换钱最少货币数
  * 给定数组arr,arr中所有的值都为正数且不重复，每个值代表一种面值的货币，每种面值的货币可以使用任意张，再给定一个整数aim代表要找的钱数，
  * 求组成aim的最少币数
@@ -16,11 +59,12 @@ package leetcode.DynamicPlanning;
  *      2.只使用一张当前货币arr[i]：  dp[i][j] = dp[i-1][j - 1 * arr[i]] + 1
  *      3.只使用两张当前货币arr[i]：  dp[i][j] = dp[i-1][j - 2 * arr[i]] + 2
  *      4.只使用N张当前货币arr[i]：  dp[i][j] = dp[i-1][j - N * arr[i]] + N
+ *
  *      dp[i][j]的值来自于以上的最小值  dp[i][j] = min{dp[i-1][j- k * arr[i]] + k (0=<k)}
  *
  *      => dp[i][j] = min{dp[i-1][j], min{dp[i-1][j - x * arr[i]] + x (1<=x)}}
  *
- *      => dp[i][j] = min{dp[i-1][j], min{dp[i-1][j-arr[i]-y*arr[i]] + y+1 (0<=y)}}
+ *      => dp[i][j] = min{dp[i-1][j], min{dp[i-1][j-arr[i]-y*arr[i]] + y+1 (0<=y)}}   //将 y+1 代入上述的 x
  *
  *      又有 min{dp[i-1][j-arr[i]-y*arr[i]] + y (0<=y)} => dp[i][j-arr[i]]
  *
@@ -40,6 +84,41 @@ package leetcode.DynamicPlanning;
 public class LeastCurrency {
 
     public static void main(String[] args){
+        int[] arr=new int[]{5,2,3};
+        int aim=0;
 
+        LeastCurrency lc = new LeastCurrency();
+        int[] dp = lc.getDp(arr, aim);
+        System.out.println(Arrays.toString(dp));
+        System.out.println(dp[dp.length-1]);
+    }
+
+    public int coinChange(int[] coins, int amount){
+        int[] dp = getDp(coins, amount);
+        return dp[amount] > amount ? -1 : dp[amount];
+    }
+
+    /**
+     * 官方思路 dp[i] 表示组成i元的最少货币数
+     * @param arr
+     * @param aim
+     * @return
+     */
+    public int[] getDp(int[] arr, int aim){
+        int[] dp = new int[aim+1];//aim+1 的原因是考虑第一位为0，比如aim=10，是【0，1,2.....10】 共11位
+        Arrays.fill(dp, (int)Math.pow(10, 4)+1);
+        //组成0元所需货币数为0
+        dp[0] = 0;
+        for(int i=1;i<dp.length;i++){
+            //组成i元最后一张货币可能是arr中的任意一种， 取所有情况的min
+            for(int j=0;j<arr.length;j++){
+                if(i>=arr[j]){
+                    dp[i] = Math.min(dp[i], dp[i-arr[j]] + 1);
+                } else {
+                    //当前货币面额比所求组成金额大，说明当前情况不满足
+                }
+            }
+        }
+        return dp;
     }
 }

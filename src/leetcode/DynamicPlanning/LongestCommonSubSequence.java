@@ -11,7 +11,7 @@ import java.util.Arrays;
  *  则满足 dp[i][j] = max{
  *                      dp[i-1][j],--- 代表str1[0...i-1]和str2[0...j]中的最长公共子序列长度
  *                      dp[i][j-1],--- 代表str1[0...i]和str2[0...j-1]中的最长公共子序列长度
- *                      dp[i-1][j-1] + 1 ,(要求str[i]==str[j])
+ *                      dp[i-1][j-1] + 1 ,(要求str1[i]==str2[j])
  *                      }
  * 时间复杂度 O(M*N) + O(max{M,N})
  * @author: zhangchaoyi
