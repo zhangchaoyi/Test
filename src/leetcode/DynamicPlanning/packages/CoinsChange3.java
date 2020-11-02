@@ -1,4 +1,4 @@
-package leetcode.DynamicPlanning;
+package leetcode.DynamicPlanning.packages;
 
 /**
  * 518. 零钱兑换 II

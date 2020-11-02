@@ -1,4 +1,6 @@
-package leetcode.DynamicPlanning;
+package leetcode.DynamicPlanning.packages;
+
+import leetcode.DynamicPlanning.LongestCommonSubstring;
 
 import java.util.Arrays;
 
