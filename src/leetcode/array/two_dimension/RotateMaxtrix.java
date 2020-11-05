@@ -28,20 +28,6 @@ public class RotateMaxtrix {
         LongestCommonSubstring.printArray(source);
     }
 
-    private int[][] rotate(int[][] source){
-        boolean[][] mark = new boolean[source.length][source[0].length];
-
-        for(int i=0;i<source.length;i++){
-            for(int j=0;j<source[0].length;j++){
-                if (!mark[i][j]) {
-                    changePosition(source, mark, i, j, source[i][j]);
-                }
-            }
-        }
-
-        return source;
-    }
-
     private void changePosition(int[][] source, boolean[][] mark, int rowIndex, int colIndex, int value){
         int COL = source[0].length-1;
         if (mark[rowIndex][colIndex]) {
@@ -56,4 +42,17 @@ public class RotateMaxtrix {
         mark[rowIndex][colIndex] = true;
         changePosition(source, mark, nextRowIndex, nextColIndex, nextValue);
     }
+
+    public void rotate(int[][] matrix) {
+        boolean[][] mark = new boolean[matrix.length][matrix[0].length];
+
+        for(int i=0;i<matrix.length;i++){
+            for(int j=0;j<matrix[0].length;j++){
+                if (!mark[i][j]) {
+                    changePosition(matrix, mark, i, j, matrix[i][j]);
+                }
+            }
+        }
+    }
+
 }
