@@ -95,6 +95,15 @@ public class MaxSlidingWindow {
         while (!deq.isEmpty() && nums[i] > nums[deq.getLast()]) deq.removeLast();
     }
 
+    /**
+     * 时间复杂度：O(N)，每个元素被处理两次- 其索引被添加到双向队列中和被双向队列删除。
+     *
+     * 空间复杂度：O(N)，输出数组使用了 O(N−k+1) 空间，双向队列使用了 O(k)。
+     * @param nums
+     *
+     * @param k
+     * @return
+     */
     public int[] maxSlidingWindow3(int[] nums, int k) {
         int n = nums.length;
         if (n * k == 0) return new int[0];
@@ -124,24 +133,10 @@ public class MaxSlidingWindow {
     public static void main(String[] args) {
         int[] nums = new int[]{1, 3, -1, -3, 5, 3, 6, 7};
 
-//        MaxSlidingWindow msw = new MaxSlidingWindow();
-//        msw.maxSlidingWindow3(nums, 3);
+        MaxSlidingWindow msw = new MaxSlidingWindow();
+        msw.maxSlidingWindow3(nums, 3);
 
-        Stack<Integer> stack = new Stack<>();
-        for (int i = 0; i < nums.length; i++) {
-            pushAfterPopMinValue(stack, nums[i]);
-        }
     }
 
-    private static void pushAfterPopMinValue(Stack<Integer> stack, Integer num) {
-        while (!stack.isEmpty()) {
-            Integer stackHead = stack.peek();
-            if (stackHead < num) {
-                stack.pop();
-            } else {
-                break;
-            }
-        }
-        stack.push(num);
-    }
+
 }
