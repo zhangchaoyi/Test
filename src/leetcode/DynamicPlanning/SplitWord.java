@@ -1,7 +1,5 @@
 package leetcode.DynamicPlanning;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.*;
 
 /**
@@ -38,8 +36,8 @@ import java.util.*;
  *
  *  动态规划： 参考完全背包问题  F[v] = max{F[v], F[j-Ci]+Wi}
  *
- *          dp[i]表示s前i个字符能否拆分
- *          转移方程：dp[j] = dp[i] && check(s[i+1, j]);  这等价于s[i+1, j]是否是wordDict中的元素
+ * dp[i]表示s前i个字符能否拆分
+ * 因此判断 dp[i] 根据前面的 dp[j] & wordDict.contains(string(j,i)) , 只要有一个j就能满足条件
  *
  * @Author: chaoyi.zhang
  * @Date: 2020/10/26 14:17
@@ -90,13 +88,13 @@ public class SplitWord {
 
     public static void main(String[] args){
         SplitWord sw = new SplitWord();
-//        String s = "leetcode";
-//        List<String> wordDict = new ArrayList<String>(){
-//            {
-//                add("leet");
-//                add("code");
-//            }
-//        };
+        String s = "leetcode";
+        List<String> wordDict = new ArrayList<String>(){
+            {
+                add("leet");
+                add("code");
+            }
+        };
 //        String s = "catsandog";
 //        List<String> wordDict = new ArrayList<String>(){
 //            {
@@ -107,43 +105,35 @@ public class SplitWord {
 //                add("cat");
 //            }
 //        };
-        String s = "ccbb";
-        List<String> wordDict = new ArrayList<String>(){
-            {
-                add("bc");
-                add("cb");
-            }
-        };
-
-        System.out.println(sw.wordBreak(s, wordDict));
-//        System.out.println(sw.matchWord("leet", "leet"));
-
-//        System.out.println(sw.isWhiteSpace("   "));
-        System.out.println("|"+"    ".trim() +"|");
+//        String s = "ccbb";
+//        List<String> wordDict = new ArrayList<String>(){
+//            {
+//                add("bc");
+//                add("cb");
+//            }
+//        };
+        System.out.println(sw.wordBreak2(s, wordDict));
     }
 
-    /*
-    动态规划算法，dp[i]表示s前i个字符能否拆分
-    转移方程：dp[j] = dp[i] && check(s[i+1, j]);
-    check(s[i+1, j])就是判断i+1到j这一段字符是否能够拆分
-    其实，调整遍历顺序，这等价于s[i+1, j]是否是wordDict中的元素
-    这个举个例子就很容易理解。
-    假如wordDict=["apple", "pen", "code"],s = "applepencode";
-    dp[8] = dp[5] + check("code")
-    翻译一下：前八位能否拆分取决于前五位能否拆分，加上五到八位是否属于字典
-*/
-    public boolean wordBreak3(String s, List<String> wordDict) {
-        Set<String> wordDictSet = new HashSet(wordDict);
-        boolean[] dp = new boolean[s.length() + 1];
-        dp[0] = true;
-        for (int i = 1; i <= s.length(); i++) {
-            for (int j = 0; j < i; j++) {
-                if (dp[j] && wordDictSet.contains(s.substring(j, i))) { // 为啥不能dp[i]= dp[j] && wordDictSet.contains(s.substring(j, i))
+    /**
+     * 动态规划
+     * dp[i] 代表 s(0, i-1) 的状态
+     * dp[j] && wordDict.contains(string(j,i)),  j<i 只要有一个满足为true即可
+     * // 即等价于  s(0,j-1) && s(j,i)
+     */
+    public boolean wordBreak2(String s, List<String> wordDict) {
+        boolean[] dp = new boolean[s.length()+1];
+        //0个字符能满足
+        dp[0]=true;
+
+        for(int i=1;i<s.length()+1;i++){
+            for(int j=0;j<i;j++){
+                String remain = s.substring(j,i);
+                if(dp[j] && wordDict.contains(remain)){
                     dp[i] = true;
                 }
             }
         }
-        System.out.println(Arrays.toString(dp));//[true, false, false, false, true, false, false, false, true]
         return dp[s.length()];
     }
 
