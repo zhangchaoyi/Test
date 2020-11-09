@@ -34,6 +34,7 @@ public class NoRepeatLongestSubString {
 
     /**
      * 动态规划，超出内存限制，超出时间限制
+     * O(n^2)
      * @param s
      * @return
      */
@@ -66,6 +67,8 @@ public class NoRepeatLongestSubString {
 
     /**
      * 动态规划，压缩空间， 超出时间限制
+     * 时间复杂度 O(n^2)
+     * 空间复杂度 O(n)
      * @param s
      * @return
      */
@@ -100,15 +103,36 @@ public class NoRepeatLongestSubString {
 
     /**
      * 左右双指针，右指针不断每右移一位， 判断是否包含，如果包含，左指针移到相同的字符的后一位； 中途不断记录区间的大小
+     * O(n)
      * @param s
      * @return
      */
     public int lengthOfLongestSubstring(String s) {
-        return 0;
+        if(s==null || s.length()==0){
+            return 0;
+        }
+        if(s.length() == 1){
+            return 1;
+        }
+        int max = Integer.MIN_VALUE;
+        int left = 0;
+        int right = 1;
+
+        while(right <= s.length()-1){
+            String subString = s.substring(left, right);
+            //如果当前的不重复子串包含right的字符， 则left为当前字符.indexOf(right字符)的下一个位置，计算出下一个不重复子串
+            if(subString.contains(String.valueOf(s.charAt(right)))){
+                left += subString.indexOf(s.charAt(right)) + 1;
+            }
+            max = Math.max(max, right-left+1);
+            right++;
+        }
+
+        return max;
     }
 
     public static void main(String[] args){
-        String s = new String("pwwkew");
+        String s = new String("bc");
 
         NoRepeatLongestSubString nlss = new NoRepeatLongestSubString();
         System.out.println(nlss.lengthOfLongestSubstring(s));
