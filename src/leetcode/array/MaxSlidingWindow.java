@@ -1,7 +1,6 @@
 package leetcode.array;
 
 import java.util.ArrayDeque;
-import java.util.Stack;
 
 /**
  * 239. 滑动窗口最大值

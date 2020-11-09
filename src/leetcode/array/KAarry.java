@@ -7,6 +7,9 @@ package leetcode.array;
  *
  * 一般解决办法的思路，遍历一次O(n), 直接寻找到k
  * 最优复杂度 二分 O(logn)
+ *
+ * 使用 array[0]作为参照物，如果 array[n/2] > array[0] , 说明 k 位置在array[n/2]右侧
+ *                        如果 array[n/2] < array[0] , 说明 k 位置在array[n/2]左侧
  */
 public class KAarry {
 
