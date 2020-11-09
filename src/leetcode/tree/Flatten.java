@@ -29,6 +29,8 @@ package leetcode.tree;
  *
  * @Author: chaoyi.zhang
  * @Date: 2020/11/9 10:43
+ *
+ * todo
  */
 public class Flatten {
 
