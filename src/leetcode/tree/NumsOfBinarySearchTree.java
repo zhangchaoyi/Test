@@ -40,15 +40,15 @@ public class NumsOfBinarySearchTree {
         dp[0] = 1;
         dp[1] = 1;
 
-        for (int i = 2; i < n + 1; i++)
-            for (int j = 1; j < i + 1; j++)
-                dp[i] += dp[j - 1] * dp[i - j];
+        for (int i = 2; i < n + 1; i++)//从1...n的二叉搜索数数目
+            for (int j = 1; j < i + 1; j++) // 逐步选用1...n作为根节点
+                dp[i] += dp[j - 1] * dp[i - j]; // 左侧j-1个数，右侧i-j个数, 做排列组合
 
         return dp[n];
     }
 
     public static void main(String[] args) {
         NumsOfBinarySearchTree nbst = new NumsOfBinarySearchTree();
-        System.out.println(nbst.numTrees(1));
+        System.out.println(nbst.numTrees(4));
     }
 }

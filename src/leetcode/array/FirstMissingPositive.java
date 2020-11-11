@@ -35,7 +35,7 @@ import java.util.*;
 public class FirstMissingPositive {
 
     public static void main(String[] args){
-        int[] nums = new int[]{3,1,1,4};
+        int[] nums = new int[]{3,4,-1,1};
 
         FirstMissingPositive fmp = new FirstMissingPositive();
         System.out.println(fmp.firstMissingPositive3(nums));
@@ -110,6 +110,9 @@ public class FirstMissingPositive {
         int len = nums.length;
 
         for (int i = 0; i < len; i++) {
+            /**
+             * 即目的是将 nums[i] 的数字放到 nums[nums[i]-1] 的位置上
+             */
             while (nums[i] > 0 && nums[i] <= len && nums[nums[i] - 1] != nums[i]) {
                 // 满足在指定范围内、并且没有放在正确的位置上，才交换
                 // 例如：数值 3 应该放在索引 2 的位置上
