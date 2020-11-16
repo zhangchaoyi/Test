@@ -10,6 +10,11 @@ import java.util.Arrays;
 
  输入: [0,1,0,3,12]
  输出: [1,3,12,0,0]
+
+ 原地移动：时间复杂度O(n) ,  空间复杂度 O(1)
+  左指针用于指向非零元素的最后一位，可以保证左指针左边的都是非零元素
+  右指针用于指向遍历，等到右指针到length结束
+
  */
 public class MoveZeroes {
 
@@ -29,6 +34,23 @@ public class MoveZeroes {
         }
     }
 
+    public void moveZeroes2(int[] nums) {
+        int left = 0;
+        int right = 0;
+
+        while(right<nums.length){
+            if(nums[right] != 0){
+                nums[left] = nums[right];
+                left++;
+            }
+            right++;
+        }
+        //将left右边的置零
+        for(int i=left;i<nums.length;i++){
+            nums[i]=0;
+        }
+    }
+
     private void swap(int[] nums, int i, int j){
         int tmp = nums[i];
         nums[i] = nums[j];
@@ -39,7 +61,7 @@ public class MoveZeroes {
         int[] a = new int[]{0,1,0,3,12};
 
         MoveZeroes mz = new MoveZeroes();
-        mz.moveZeroes(a);
+        mz.moveZeroes2(a);
         System.out.println(Arrays.toString(a));
     }
 }
