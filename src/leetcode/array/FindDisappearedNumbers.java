@@ -1,5 +1,6 @@
 package leetcode.array;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +15,12 @@ import java.util.List;
  *
  * 输入:
  * [4,3,2,7,8,2,3,1]
+ *  4,3,2,4,8,2,3,1 -> 4,3,2,4,8,2,7,1 -> 4,3,2,4,8,2,7,1 -> 4,3,3,4,8,2,7,1 -> 4,2,3,4,8,2,7,1
+ *
+ *  4,2,3,4,8,2,7,8 -> 1,2,3,4,8,2,7,8
+ *
+ *  遍历一次数组，找出 num[i]-1 != i 的元素
+ *
  *
  * 输出:
  * [5,6]
@@ -21,11 +28,48 @@ import java.util.List;
  * @Author: chaoyi.zhang
  * @Date: 2020/11/10 14:37
  *
+ * 思路：1.借助一个map，计数排序，时间复杂度O(n), 空间复杂度O(n)
+ *      2.原地换位，鸽巢原理  将位置i的数放到num[i]-1
  * todo
  */
 public class FindDisappearedNumbers {
 
+    /**
+     * 使用思路2实现
+     * @param nums
+     * @return
+     */
     public List<Integer> findDisappearedNumbers(int[] nums) {
-        return null;
+        for(int i=0;i<nums.length;i++){
+            while(nums[i] != i+1){
+                //判断nums[i]-1是否已经有了正确的元素
+                if(nums[nums[i]-1] == nums[i]){
+                    break;
+                }
+                //将当前位置i的元素移动到应该的位置 nums[i]-1
+                swap(nums, i, nums[i]-1);
+            }
+        }
+
+        List<Integer> list = new ArrayList<>();
+        for(int i=0;i<nums.length;i++){
+            if(nums[i] != i+1){
+                list.add(i+1);//说明位置i的元素错误，记录i+1
+            }
+        }
+
+        return list;
+    }
+
+    private void swap(int[] nums, int i, int j){
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+
+    public static void main(String[] args){
+        int[] nums = new int[]{4,3,2,7,8,2,3,1};
+        FindDisappearedNumbers fd = new FindDisappearedNumbers();
+        System.out.println(fd.findDisappearedNumbers(nums));
     }
 }
