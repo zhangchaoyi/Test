@@ -40,7 +40,6 @@ public class DelayTask<T extends Runnable> implements Delayed  {
 
     @Override
     public int compareTo(Delayed other) {
-        // TODO Auto-generated method stub
         if (other == this) // compare zero ONLY if same object
             return 0;
         if (other instanceof DelayTask) {
