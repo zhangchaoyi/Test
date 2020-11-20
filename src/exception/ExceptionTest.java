@@ -11,7 +11,6 @@ public class ExceptionTest {
         try {
             a.f();
         } catch (MyException2 e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -36,7 +35,6 @@ class A{
         try {
             g();
         } catch (MyException1 e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             //这里做了修改
             throw new MyException2(e);
