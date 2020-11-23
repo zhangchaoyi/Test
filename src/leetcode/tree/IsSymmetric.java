@@ -33,7 +33,6 @@ import java.util.*;
  *
  * @Author: chaoyi.zhang
  * @Date: 2020/11/10 14:41
- * todo
  */
 public class IsSymmetric {
 
@@ -62,13 +61,57 @@ public class IsSymmetric {
     }
 
     /**
+     * 迭代，Queue每次弹出两个元素，分别是镜像比较的元素
+     * @param root
+     * @return
+     */
+    public boolean isSymmetric2(TreeNode root) {
+        if(Objects.isNull(root)){
+            return true;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        if(Objects.isNull(root.left) && Objects.isNull(root.right)){
+            return true;
+        } else if(Objects.isNull(root.left) || Objects.isNull(root.right)){
+            return false;
+        }
+        queue.add(root.left);
+        queue.add(root.right);
+        while (!queue.isEmpty()) {
+            TreeNode left = queue.poll();
+            TreeNode right = queue.poll();
+            if(left.val != right.val){
+                return false;
+            }
+            if (Objects.nonNull(left.left) && Objects.nonNull(right.right)) {
+                queue.add(left.left);
+                queue.add(right.right);
+            } else if(Objects.isNull(left.left) && Objects.isNull(right.right)){
+
+            } else {
+                return false;
+            }
+            if(Objects.nonNull(left.right) && Objects.nonNull(right.left)){
+                queue.add(left.right);
+                queue.add(right.left);
+            } else if(Objects.isNull(left.right) && Objects.isNull(right.left)){
+
+            } else {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * 超出时间限制
      * @param root
      * @return
      */
     public boolean isSymmetric1(TreeNode root) {
         if(Objects.isNull(root)){
-            return false;
+            return true;
         }
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
@@ -143,6 +186,6 @@ public class IsSymmetric {
 //        Rr.right = Rrr;
 
         IsSymmetric is = new IsSymmetric();
-        System.out.println(is.isSymmetric(root));
+        System.out.println(is.isSymmetric2(root));
     }
 }

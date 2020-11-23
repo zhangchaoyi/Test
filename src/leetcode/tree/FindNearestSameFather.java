@@ -35,8 +35,6 @@ import java.util.*;
  *
  * @Author: chaoyi.zhang
  * @Date: 2020/11/5 14:29
- *
- * todo
  */
 public class FindNearestSameFather {
 
