@@ -1,5 +1,7 @@
 package leetcode.array;
 
+import java.util.Arrays;
+
 /**
  * 75. 颜色分类
  *
@@ -23,12 +25,44 @@ package leetcode.array;
  * @Author: chaoyi.zhang
  * @Date: 2020/11/10 14:15
  *
- * todo
+ * 思路，一次遍历，3个下标 left记录0位置， right记录2位置， 从左向右遍历 i
+ * 如果i==0,swap(left++, i)  i==1不处理； i==2 swap(right++, i)（如果i的位置仍然是2while swap右指针）
+ * 在遍历的过程中，i左边的有 0和1 ，  left左边是0, left当前位即右边非0，   right右边是2，right当前位置和左边非2
  *
  */
 public class SortColors {
 
     public void sortColors(int[] nums) {
+        if (nums.length==1) {
+            return;
+        }
+        int left = 0;
+        int right = nums.length-1;
 
+        for(int i=0;i<nums.length;i++){
+            if(i>right) {
+                break;
+            }
+            //1.可能swap后仍然为2，因此需要while 2.如果swap后是0，则被后续处理
+            while (i<=right && nums[i]==2) {
+                swap(nums, right--, i);
+            }
+            if (nums[i]==0) {
+                swap(nums, left++, i);
+            }
+        }
+    }
+
+    private void swap(int[] nums, int a, int b){
+        int temp = nums[a];
+        nums[a] = nums[b];
+        nums[b] = temp;
+    }
+
+    public static void main(String[] args){
+        SortColors sc = new SortColors();
+        int[] nums = new int[]{2,2};
+        sc.sortColors(nums);
+        System.out.println(Arrays.toString(nums));
     }
 }
