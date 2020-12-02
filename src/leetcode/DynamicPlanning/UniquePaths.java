@@ -1,4 +1,4 @@
-package leetcode.array.two_dimension;
+package leetcode.DynamicPlanning;
 
 /**
  * 62. 不同路径
@@ -26,7 +26,6 @@ package leetcode.array.two_dimension;
  * @Author: chaoyi.zhang
  * @Date: 2020/11/10 14:26
  *
- * todo
  * dp[i][j]表示（i,j）的不同路径
  * dp[i][j] = dp[i][j-1] + dp[i-1][j]
  *
