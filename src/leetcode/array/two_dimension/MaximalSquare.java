@@ -1,5 +1,7 @@
 package leetcode.array.two_dimension;
 
+import leetcode.DynamicPlanning.LongestCommonSubstring;
+
 /**
  * 221. 最大正方形
  * 在一个由 '0' 和 '1' 组成的二维矩阵内，找到只包含 '1' 的最大正方形，并返回其面积。
@@ -17,10 +19,50 @@ package leetcode.array.two_dimension;
  * @Author: chaoyi.zhang
  * @Date: 2020/11/10 14:27
  *
- * 思路：遍历二维数组，每个节点 拓展判断
+ * 思路：1.遍历二维数组，每个节点 拓展判断
+ *      2.动态规划，dp[i][j]表示只包含1的右下角正方形的最大边长，因此当matrix[i][j]==0时， dp[i][j]=0;  当matrix[i][j]==1时，dp[i][j]==min{dp[i][j-1], dp[i-1][j-1], dp[i-1][j]}
+ *       如果知道了最大边长，其平方即所求的最大面积
  */
 public class MaximalSquare {
 
+    public int maximalSquare(char[][] matrix) {
+        if(matrix.length==0){
+            return 0;
+        }
+        int curMax = 0;
+        int[][] dp = new int[matrix.length][matrix[0].length];
+        //第一行 第一列初始化
+        for(int i=0;i<matrix.length;i++){
+            if(matrix[i][0]=='1'){
+                dp[i][0]=1;
+                curMax = Math.max(1, curMax);
+            }
+        }
+        for(int i=0;i<matrix[0].length;i++){
+            if (matrix[0][i]=='1') {
+                dp[0][i] = 1;
+                curMax = Math.max(1, curMax);
+            }
+        }
+
+        for(int i=1;i<matrix.length;i++){
+            for(int j=1;j<matrix[0].length;j++){
+                if (matrix[i][j]=='0') {
+                    dp[i][j]=0;
+                } else {
+                    dp[i][j] = Math.min(dp[i][j-1], Math.min(dp[i-1][j-1], dp[i-1][j])) + 1;
+
+                    curMax = Math.max(dp[i][j], curMax);
+                }
+            }
+        }
+
+        LongestCommonSubstring.printArray(dp);
+
+        return curMax*curMax;
+    }
+
+    //========================================================================================
     private int max = 0;
 
     /**
@@ -35,7 +77,7 @@ public class MaximalSquare {
      * @param matrix
      * @return
      */
-    public int maximalSquare(char[][] matrix) {
+    public int maximalSquare1(char[][] matrix) {
         if(matrix.length==0){
             return 0;
         }
@@ -92,17 +134,17 @@ public class MaximalSquare {
 //                {'1','0','0','1','0'}
 //        };
 
-        char[][] matrix = new char[][]{
-                {'0','1','1','0','0','1','0','1','0','1'},
-                {'0','0','1','0','1','0','1','0','1','0'},
-                {'1','0','0','0','0','1','0','1','1','0'},
-                {'0','1','1','1','1','1','1','0','1','0'},
-                {'0','0','1','1','1','1','1','1','1','0'},
-                {'1','1','0','1','0','1','1','1','1','0'},
-                {'0','0','0','1','1','0','0','0','1','0'},
-                {'1','1','0','1','1','0','0','1','1','1'},
-                {'0','1','0','1','1','0','1','0','1','1'}};
-        
+//        char[][] matrix = new char[][]{
+//                {'0','1','1','0','0','1','0','1','0','1'},
+//                {'0','0','1','0','1','0','1','0','1','0'},
+//                {'1','0','0','0','0','1','0','1','1','0'},
+//                {'0','1','1','1','1','1','1','0','1','0'},
+//                {'0','0','1','1','1','1','1','1','1','0'},
+//                {'1','1','0','1','0','1','1','1','1','0'},
+//                {'0','0','0','1','1','0','0','0','1','0'},
+//                {'1','1','0','1','1','0','0','1','1','1'},
+//                {'0','1','0','1','1','0','1','0','1','1'}};
+        char[][] matrix = new char[][]{{'0','1'}};
         
         MaximalSquare ms = new MaximalSquare();
         System.out.println(ms.maximalSquare(matrix));
