@@ -12,10 +12,11 @@ package leetcode.tree;
  * 节点的右子树仅包含键 大于 节点键的节点。
  * 左右子树也必须是二叉搜索树。
  *  
- *  思路：即反向中序遍历
+ *  思路：即反向中序遍历，记录累加和 递归 时间复杂度 O(n) 空间复杂度 O(n)
  */
 public class BinarySearchTreeToGreaterSumTree {
 
+    //记录各个节点遍历的累加和
     int sum=0;
 
     //叶子节点的值为本身
@@ -28,7 +29,31 @@ public class BinarySearchTreeToGreaterSumTree {
             bstToGst(root.left);
         }
         return root;
+    }
 
+    public static void main(String[] args){
+        //4,1,6,0,2,5,7,null,null,null,3,null,null,null,8
+        TreeNode root = new TreeNode(4);
+        TreeNode Rl = new TreeNode(1);
+        TreeNode Rr = new TreeNode(6);
+        TreeNode Rll = new TreeNode(0);
+        TreeNode Rlr = new TreeNode(2);
+        TreeNode Rrl = new TreeNode(5);
+        TreeNode Rrr = new TreeNode(7);
+        TreeNode Rlrr = new TreeNode(3);
+        TreeNode Rrrr = new TreeNode(8);
+
+        root.left = Rl;
+        root.right = Rr;
+        Rl.left = Rll;
+        Rl.right = Rlr;
+        Rr.left = Rrl;
+        Rr.right = Rrr;
+        Rlr.right = Rlrr;
+        Rrr.right = Rrrr;
+
+        BinarySearchTreeToGreaterSumTree bsttg = new BinarySearchTreeToGreaterSumTree();
+        bsttg.bstToGst(root);
     }
 
 }
