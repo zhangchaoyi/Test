@@ -1,4 +1,4 @@
-package binary;
+package leetcode.bit;
 
 /**
  * @description: 判断一个数是否2的n次方
