@@ -1,4 +1,4 @@
-package leetcode.array;
+package leetcode.DynamicPlanning.stock;
 
 /**
  * 309. 最佳买卖股票时机含冷冻期
@@ -19,7 +19,7 @@ package leetcode.array;
  *
  * todo
  */
-public class MaxProfit {
+public class MaxProfitCodePeriod {
 
     public int maxProfit(int[] prices) {
         return 0;

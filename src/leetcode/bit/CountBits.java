@@ -60,7 +60,7 @@ public class CountBits {
      * 假如当前数是 x = 11001101 ，考虑除了最后一位的剩余数字是 1100110 + 最后一位是否为 1
      * 所以有 dp[i] = dp[i/2] + i%2  ==>  dp[i>>1] + i&1
      *
-     *
+     * O(n)
      * @param num
      * @return
      */
