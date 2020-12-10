@@ -27,9 +27,32 @@ package leetcode.DynamicPlanning.stock;
  *
  * @Author: chaoyi.zhang
  * @Date: 2020/12/7 14:38
+ *
+ * 思路：定义两个dp ， cash[]代表不持有股票的最大利润 ， hold[]代表持有股票的最大利润
+ *      cash[i] = max{cash[i-1], hold[i-1]+prices[i]-fee}  -- cash[i]有两种状态转换  1.不买入股票，继续持有cash[i-1]     2.从持有到卖出，hold[i-1] -> cash[i]
+ *      hold[i] = max{hold[i-1], cash[i-1]-prices[i]}  -- hold[i]有两种状态转换   1.不卖出，继续持有hold[i-1]   2.从不持有到买入, cash[i-1] -> hold[i]
  */
 public class MaxProfitHandlingFee {
-    public int maxProfit(int[] prices) {
-        return 0;
+
+    public int maxProfit(int[] prices, int fee) {
+        int[] cash = new int[prices.length];
+        int[] hold = new int[prices.length];
+        cash[0] = 0;//代表第一天不买，当前的最大利润为0
+        hold[0] = -prices[0];//代表第一天买入
+
+        for(int i=1;i<prices.length;i++){
+            cash[i] = Math.max(cash[i-1], hold[i-1]+prices[i]-fee);
+            hold[i] = Math.max(hold[i-1], cash[i-1]-prices[i]);
+        }
+
+        return cash[prices.length-1];
+    }
+
+    public static void main(String[] args){
+        //[9,8,7,1,2]
+        //3
+        int[] prices = new int[]{9,8,7,1,2};
+        MaxProfitHandlingFee maxProfitHandlingFee = new MaxProfitHandlingFee();
+        System.out.println(maxProfitHandlingFee.maxProfit(prices, 3));
     }
 }

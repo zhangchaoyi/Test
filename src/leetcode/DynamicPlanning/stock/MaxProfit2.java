@@ -82,7 +82,7 @@ public class MaxProfit2 {
     }
 
     public static void main(String[] args){
-        int[] prices = new int[]{7,6,4,3,1};
+        int[] prices = new int[]{1, 3, 2, 8};
 
         MaxProfit2 maxProfit1 = new MaxProfit2();
         System.out.println(maxProfit1.maxProfit(prices));

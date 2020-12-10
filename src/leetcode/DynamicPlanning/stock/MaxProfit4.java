@@ -32,7 +32,12 @@ package leetcode.DynamicPlanning.stock;
  * @Date: 2020/12/7 14:36
  */
 public class MaxProfit4 {
-    public int maxProfit(int[] prices) {
+
+    public int maxProfit(int k, int[] prices) {
         return 0;
+    }
+
+    public static void main(String[] args){
+
     }
 }
