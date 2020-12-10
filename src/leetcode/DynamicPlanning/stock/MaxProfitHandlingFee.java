@@ -28,7 +28,7 @@ package leetcode.DynamicPlanning.stock;
  * @Author: chaoyi.zhang
  * @Date: 2020/12/7 14:38
  *
- * 思路：定义两个dp ， cash[]代表不持有股票的最大利润 ， hold[]代表持有股票的最大利润
+ * 思路：定义两个dp ， cash[]代表第i天不持有股票的最大利润 ， hold[]代表第i天持有股票的最大利润
  *      cash[i] = max{cash[i-1], hold[i-1]+prices[i]-fee}  -- cash[i]有两种状态转换  1.不买入股票，继续持有cash[i-1]     2.从持有到卖出，hold[i-1] -> cash[i]
  *      hold[i] = max{hold[i-1], cash[i-1]-prices[i]}  -- hold[i]有两种状态转换   1.不卖出，继续持有hold[i-1]   2.从不持有到买入, cash[i-1] -> hold[i]
  */
