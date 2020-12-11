@@ -2,6 +2,7 @@ package leetcode.list;
 
 /**
  * Created by zcy on 18-5-16.
+ * 206
  */
 public class Reverse {
 

@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Stack;
 
 /**
+ * 155. 最小栈
  * 设计一个有getMin的栈，返回栈中最小的元素
  * 要求pop/push/getMin的时间复杂度都是O(1)
  *
@@ -14,6 +15,8 @@ import java.util.Stack;
  *
  * 思路2：在压入stackData时如果当前数据大于stackMin顶的数据，再压入一次stackMin顶的数据;
  *       出栈时同时出两个栈的数据
+ *
+ * 思路3： 使用一个栈，定义一个Node对象，包含value和min ， min维护当前的最小值
  *
  */
 public class GetMinStack {
@@ -132,29 +135,84 @@ public class GetMinStack {
         }
     }
 
+    public static class MinStack {
+
+        Stack<Node> stack = new Stack<>();
+
+        /** initialize your data structure here. */
+        public MinStack() {
+
+        }
+
+        public void push(int x) {
+            if(stack.isEmpty()) {
+                stack.push(new Node(x, x));
+            } else {
+                Node head = stack.peek();
+                stack.push(new Node(x, x<head.min?x:head.min));
+            }
+        }
+
+        public void pop() {
+            stack.pop();
+        }
+
+        public int top() {
+            if(stack.isEmpty()){
+                return 0;
+            }
+            return stack.peek().value;
+        }
+
+        public int getMin() {
+            if(stack.isEmpty()){
+                return 0;
+            }
+            return stack.peek().min;
+        }
+
+    }
+
+    private static class Node{
+        private int value;
+        private int min;
+        Node(int value, int min){
+            this.value = value;
+            this.min = min;
+        }
+    }
+
 
     public static void main(String[] args){
-        MinStack2 minStack = new MinStack2();
-        minStack.push(3);
-        minStack.push(5);
-        minStack.push(5);
-        minStack.push(3);
-        minStack.push(3);
-        minStack.push(2);
-        minStack.push(4);
-        minStack.push(5);
-        System.out.println(minStack);
+//        MinStack2 minStack = new MinStack2();
+//        minStack.push(3);
+//        minStack.push(5);
+//        minStack.push(5);
+//        minStack.push(3);
+//        minStack.push(3);
+//        minStack.push(2);
+//        minStack.push(4);
+//        minStack.push(5);
+//        System.out.println(minStack);
+//        minStack.pop();
+//        minStack.push(6);
+//        minStack.push(8);
+//        minStack.push(9);
+//        minStack.push(1);
+//        minStack.push(2);
+//        minStack.pop();
+//        minStack.pop();
+//        minStack.pop();
+//
+//        System.out.println(minStack);
+        MinStack minStack = new MinStack();
+        minStack.push(-2);
+        minStack.push(0);
+        minStack.push(-3);
+        System.out.println(minStack.getMin());//返回 -3.
         minStack.pop();
-        minStack.push(6);
-        minStack.push(8);
-        minStack.push(9);
-        minStack.push(1);
-        minStack.push(2);
-        minStack.pop();
-        minStack.pop();
-        minStack.pop();
-
-        System.out.println(minStack);
+        System.out.println(minStack.top());//返回 0.
+        System.out.println(minStack.getMin());//返回 -2.
     }
 
 }
