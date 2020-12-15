@@ -1,11 +1,6 @@
-package leetcode.todo;
+package leetcode.array;
 
-import leetcode.array.sort.HeapSort;
-
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * 215. 数组中的第K个最大元素
@@ -23,14 +18,14 @@ import java.util.Stack;
  *
  * 你可以假设 k 总是有效的，且 1 ≤ k ≤ 数组的长度。
  *
- * 思路：空间换时间，构造一个O(k)的最小堆，一次遍历将数组逐一放入堆，返回堆中最小元素
- * 维护一个k最小堆，最终堆顶最小值恰好为所求的最小值；遍历过程中的nums[i]与堆顶元素对比是否需要放入堆中，并进行维护堆结构
- * 堆使用PriorityQueue或者单调栈 时间复杂度O(nlogk(n个元素，一次调整堆的时间logk)，空间复杂度O(n)
  *
- *
- *
- * 暴力方式：先排序，在一次遍历找到k  O(nlogn + k)
- *
+ * 暴力方式： 1.先排序，在一次遍历找到k  O(nlogn + k)
+ *          2.借助堆，空间换时间，构造一个O(k)的最小堆，一次遍历将数组逐一放入堆，返回堆中最小元素
+ *  * 维护一个k最小堆，最终堆顶最小值恰好为所求的最小值；遍历过程中的nums[i]与堆顶元素对比是否需要放入堆中，并进行维护堆结构
+ *  * 堆使用PriorityQueue或者单调栈 时间复杂度O(nlogk(n个元素，一次调整堆的时间logk)，空间复杂度O(n)
+ *          3.基于快排，因为一次快排partion能确定一个挡板元素q的位置，此时只需判断 q 和 length-k(快排基于升序) 是否相等，如果相等返回；
+ *                                                                                                          如果q<k,右区间进一步快排；
+ *                                                                                                          如果q>k,左区间进一步快排；
  *
  * @Author: chaoyi.zhang
  * @Date: 2020/12/10 16:47
@@ -153,6 +148,39 @@ public class FindKLargest {
             stack.add(num);
         }
     }
+    //=======================基于快排======================================================================================================
+    Random random = new Random();
+
+    public int findKthLargestWithQuickSort(int[] nums, int k) {
+        return quickSelect(nums, 0, nums.length - 1, nums.length - k);
+    }
+
+    public int quickSelect(int[] a, int l, int r, int index) {
+        int q = randomPartition(a, l, r);
+        if (q == index) {
+            return a[q];
+        } else {
+            return q < index ? quickSelect(a, q + 1, r, index) : quickSelect(a, l, q - 1, index);
+        }
+    }
+
+    public int randomPartition(int[] a, int l, int r) {
+        int i = random.nextInt(r - l + 1) + l;
+        swap(a, i, r);
+        return partition(a, l, r);
+    }
+
+    public int partition(int[] a, int l, int r) {
+        int x = a[r], i = l - 1;
+        for (int j = l; j < r; ++j) {
+            if (a[j] <= x) {
+                swap(a, ++i, j);
+            }
+        }
+        swap(a, i + 1, r);
+        return i + 1;
+    }
+
 
     public static void main(String[] args){
         int[] nums = new int[]{3,2,3,1,2,4,5,5,6};
