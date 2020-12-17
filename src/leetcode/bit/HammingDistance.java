@@ -1,4 +1,4 @@
-package leetcode.todo;
+package leetcode.bit;
 
 /**
  * 461. 汉明距离
@@ -21,7 +21,8 @@ package leetcode.todo;
  *        ↑   ↑
  *
  * 上面的箭头指出了对应二进制位不同的位置。
- * todo
+ *
+ * 思路：两个数进行异或，然后判断1的个数
  *
  * @Author: chaoyi.zhang
  * @Date: 2020/12/17 14:52
@@ -29,6 +30,22 @@ package leetcode.todo;
 public class HammingDistance {
 
     public int hammingDistance(int x, int y) {
-        return 0;
+
+        int res = x^y;
+        System.out.println(Integer.bitCount(res));
+        int count=0;
+        while (res!=0) {
+            count++;
+            res = res&(res-1);
+        }
+
+        return count;
+    }
+
+
+
+    public static void main(String[] args){
+        HammingDistance hammingDistance = new HammingDistance();
+        System.out.println(hammingDistance.hammingDistance(1, 4));
     }
 }

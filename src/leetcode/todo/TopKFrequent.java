@@ -22,6 +22,8 @@ package leetcode.todo;
  * 你的算法的时间复杂度必须优于 O(n log n) , n 是数组的大小。
  * 题目数据保证答案唯一，换句话说，数组中前 k 个高频元素的集合是唯一的。
  * 你可以按任意顺序返回答案。
+ *
+ * 思路：使用空间换时间， HashMap记录次数
  * todo
  * @Author: chaoyi.zhang
  * @Date: 2020/12/17 14:49
