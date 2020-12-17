@@ -24,6 +24,7 @@ import java.util.Arrays;
  *
  * 思路 1.排序后中位数 O(nlogn)
  *     2.Map 时间复杂度O(n) 空间复杂度O(n)
+ *     3.选举算法，一次遍历，先记录一个数作为选举人，如果后面的数与选举人一致 count+1, 如果不一致count-1, 当count=0时更换下一个数作为选举人
  */
 public class MajorityElement {
 
@@ -32,16 +33,30 @@ public class MajorityElement {
         return nums[nums.length/2];
     }
 
+    public int majorityElement1(int[] nums) {
+        int count = 1;
+        int major = nums[0];
+        for(int i=1;i<nums.length;i++){
+            if (count==0) {
+                count++;
+                major=nums[i];
+                continue;
+            }
+            if(nums[i]==major){
+                count++;
+            } else {
+                count--;
+            }
+        }
+        return major;
+    }
+
     public static void main(String[] args){
-        int[] nums = new int[]{2,2,1,1,1,2,2};
+        int[] nums = new int[]{3,2,3};
 
-//        MajorityElement me = new MajorityElement();
-//        System.out.println(me.majorityElement(nums));
-//
-//        System.out.println(Arrays.toString(nums));
-        String s = new String("124");
-        String s1 = new String("124");
+        MajorityElement me = new MajorityElement();
+        System.out.println(me.majorityElement1(nums));
 
-        System.out.println(s==s1);
+        System.out.println(Arrays.toString(nums));
     }
 }
