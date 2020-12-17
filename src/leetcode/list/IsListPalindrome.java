@@ -1,7 +1,5 @@
 package leetcode.list;
 
-import leetcode.list.ListNode;
-
 import java.util.Objects;
 
 /**

@@ -58,6 +58,7 @@ public class CountBits {
     /**
      * 动态规划，根据最高位判断
      * 假如当前数是 x = 11001101 ，考虑除了最后一位的剩余数字是 1100110 + 最后一位是否为 1
+     * dp[i] 表示当前数字的1的个数
      * 所以有 dp[i] = dp[i/2] + i%2  ==>  dp[i>>1] + i&1
      *
      * O(n)
@@ -65,10 +66,10 @@ public class CountBits {
      * @return
      */
     public int[] countBits1(int num) {
-        int[] ans = new int[num + 1];
+        int[] dp = new int[num + 1];
         for (int i = 1; i <= num; ++i)
-            ans[i] = ans[i >> 1] + (i & 1); // x / 2 is x >> 1 and x % 2 is x & 1
-        return ans;
+            dp[i] = dp[i >> 1] + (i & 1); // x / 2 is x >> 1 and x % 2 is x & 1
+        return dp;
     }
 
     public static void main(String[] args){
