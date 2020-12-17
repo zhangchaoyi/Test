@@ -3,7 +3,7 @@ package leetcode.DynamicPlanning;
 import java.util.Arrays;
 
 /**
- * @description: 最长递增子序列
+ * @description: 300.最长递增子序列
  * arr=[2,1,5,3,6,4,8,9,7] 返回的最长递增子序列[1,3,4,8,9]
  *
  * 动态规划：生成长度为 N 的数据dp[], dp[i]表示在arr[i]这个数的结尾下 arr[0.....i]中的最大递增子序列长度
