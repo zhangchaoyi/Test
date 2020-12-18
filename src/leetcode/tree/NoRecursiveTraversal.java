@@ -1,8 +1,6 @@
 package leetcode.tree;
 
-import java.util.List;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
@@ -107,12 +105,36 @@ public class NoRecursiveTraversal {
      *   [9,20],
      *   [15,7]
      * ]
-     * todo
      * @param root
      * @return
      */
     public List<List<Integer>> levelOrder(TreeNode root) {
-        return null;
+        if(Objects.isNull(root)){
+            return new ArrayList<>();
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        //当前层的size
+        int curSize = 1;
+        List<List<Integer>> list = new ArrayList<>();
+
+        while(!queue.isEmpty()){
+            List<Integer> perLevel = new ArrayList<>();
+            for(int i=0;i<curSize;i++){
+                TreeNode treeNode = queue.poll();
+                perLevel.add(treeNode.val);
+                if(Objects.nonNull(treeNode.left)){
+                    queue.add(treeNode.left);
+                }
+                if(Objects.nonNull(treeNode.right)){
+                    queue.add(treeNode.right);
+                }
+            }
+            list.add(perLevel);
+            curSize=queue.size();
+        }
+
+        return list;
     }
 
     /**
@@ -124,24 +146,23 @@ public class NoRecursiveTraversal {
     }
 
     public static void main(String[] args){
-        TreeNode root = new TreeNode(10);
-        TreeNode Rl = new TreeNode(5);
-        TreeNode Rll = new TreeNode(21);
-        TreeNode Rlr = new TreeNode(22);
-
-        TreeNode Rr = new TreeNode(2);
-        TreeNode Rrl = new TreeNode(23);
-        TreeNode Rrr = new TreeNode(25);
+        //3,9,20,null,null,15,7
+        TreeNode root = new TreeNode(3);
+        TreeNode Rl = new TreeNode(9);
+        TreeNode Rr = new TreeNode(20);
+        TreeNode Rrl = new TreeNode(15);
+        TreeNode Rrr = new TreeNode(7);
 
         root.left = Rl;
         root.right = Rr;
-        Rl.left = Rll;
-        Rl.right = Rlr;
         Rr.left = Rrl;
         Rr.right = Rrr;
 
 //        pre(root);
 //        pre2(root);
-        bfs(root);
+//        bfs(root);
+
+        NoRecursiveTraversal nrt = new NoRecursiveTraversal();
+        System.out.println(nrt.levelOrder(root));
     }
 }
