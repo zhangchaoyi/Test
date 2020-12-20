@@ -1,7 +1,7 @@
 package enums;
 
 /**
- * file signatures magic number, read from file header binary stream
+ * file signatures magic number, read from file header binary_search stream
  * https://en.wikipedia.org/wiki/File_signature
  */
 public enum FileType {

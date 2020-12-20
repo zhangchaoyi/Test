@@ -1,4 +1,4 @@
-package leetcode.array.binary;
+package leetcode.array.binary_search;
 
 import java.util.ArrayList;
 import java.util.Arrays;

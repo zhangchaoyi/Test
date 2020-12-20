@@ -1,4 +1,4 @@
-package leetcode.array;
+package leetcode.array.binary_search;
 
 /**
  * Created by chris on 6/24/18.
@@ -11,7 +11,6 @@ package leetcode.array;
  * k实际上就是找到array[0]
  * 使用 array[0]作为参照物，如果 array[n/2] > array[0] , 说明 k 位置在array[n/2]右侧
  *                        如果 array[n/2] < array[0] , 说明 k 位置在array[n/2]左侧
- * todo
  */
 public class KAarry {
 
@@ -25,9 +24,12 @@ public class KAarry {
         int right = array.length - 1;
         int limit = array[0];
 
-        while(left < right){
+        while(left <= right){
             int mid = (left + right) / 2;
-            if(array[mid] >= limit){
+            if(array[mid]==limit){
+                return 0;
+            }
+            if(array[mid] > limit){
                 left = mid + 1;
             } else if(array[mid] < limit){
                 right = mid - 1;

@@ -1,4 +1,4 @@
-package leetcode.array;
+package leetcode.array.binary_search;
 
 /**
  * 33. 搜索旋转排序数组
