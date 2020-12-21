@@ -63,7 +63,7 @@ public class BitTest {
      */
     public static void rightMove(){
         System.out.println((1+Integer.MIN_VALUE)>>1);//因为1+max之后已经移除，符号位变成1，此时如果右移，则符号位的左侧进行补充1
-        System.out.println((1+Integer.MIN_VALUE)>>>1);//无符号右移则在符号位左侧补充0，此时变成正数
+        System.out.println((1+Integer.MIN_VALUE)>>>1);//无符号右移则在符号位左侧补充0，此时变成正数，可以保证溢出时仍然保持正确性
     }
 
 
