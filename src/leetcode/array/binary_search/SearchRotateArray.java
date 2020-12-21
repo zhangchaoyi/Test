@@ -30,10 +30,10 @@ package leetcode.array.binary_search;
  * nums 肯定会在某个点上旋转
  * -10^4 <= target <= 10^4
  *
- * 思路: 可以画一个坐标轴，如果发生旋转，有以下特征 nums[left] > nums[right]; 如果未发生旋转则 nums[left] < nums[right]
- * 因此先确定单调性，可能有3种  1.left->right完全单调递增    nums[left] < nums[right]
- *                          2.left->mid完全单调递增, mid->right分两段递增， 此时在[left,mid]判断与target的关系
- *                          3.left->mid分两段递增， mid->right完全单调递增，此时在[mid,right]判断与target的关系
+ * 思路: 可以画一个坐标轴，如果发生旋转，有以下特征 nums[left] > nums[right]; 如果未发生旋转则 nums[left] < nums[right]，策略是找到有序的区间，在有序的区间判断nums[mid]和target关系
+ * 因此先确定单调性，可能有3种  1.left->right完全单调递增有序    nums[left] < nums[right]
+ *                          2.left->mid完全单调递增有序, mid->right分两段递增非有序， 此时在[left,mid]判断与target的关系， 如果nums[left] < target < nums[mid] 在左区间；否则在右区间
+ *                          3.left->mid分两段递增有序， mid->right完全单调递增非有序，此时在[mid,right]判断与target的关系，如果nums[mid] < target < nums[right] 在右区间；否则在左区间
  *
  *                  |               /
  *                  |            /
@@ -79,7 +79,7 @@ public class SearchRotateArray {
                 }
                 //说明临界值在mid左区间, 在右区间一定单调增
             } else if(nums[mid] < nums[left] && nums[mid] < nums[right]){
-                if(target > nums[mid] && target < nums[right]) {//target在右区间
+                if(nums[mid] < target  && target < nums[right]) {//target在右区间
                     left=mid+1;
                 } else {
                     right=mid-1;
@@ -98,8 +98,8 @@ public class SearchRotateArray {
     }
 
     public static void main(String[] args){
-        int[] nums = new int[]{3,1};
+        int[] nums = new int[]{2,5,6,0,0,1,2};
         SearchRotateArray sra = new SearchRotateArray();
-        System.out.println(sra.search(nums, 1));
+        System.out.println(sra.search(nums, 0));
     }
 }
