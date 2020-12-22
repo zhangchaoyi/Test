@@ -18,7 +18,13 @@ import java.util.Arrays;
  * 输入的数组长度范围在 [1, 10,000]。
  * 输入的数组可能包含重复元素 ，所以升序的意思是<=。
  *
- * 思路：copy一个数组排序，双指针值比较确定边界 时间复杂度O(nlog+n)  空间复杂度O(n)
+ * 思路：1.copy一个数组排序，双指针值比较确定边界 时间复杂度O(nlog+n)  空间复杂度O(n)
+ *
+ *       2.找出无序数组的左边界L和右边界R, result=R-L+1
+ *          2.1  双重循环，for(i)
+ *                           for(j=i+1)   当判断到 nums[i] > nums[j] 进行更新左右边界 min(L, i)   max(R, j)
+ *
+ *          2.2 两次遍历，从左往右遍历，维护一个i左侧的max值和一个右边界right ， 当发生逆序即 max>nums[i]时，更新right；如果升序更新max
  *
  * @Author: chaoyi.zhang
  * @Date: 2020/12/17 14:54
@@ -76,9 +82,22 @@ public class FindUnsortedSubarray {
         return r-l+1;
     }
 
+    public int findUnsortedSubarray2(int[] nums) {
+        int l=nums.length,r=0;
+        for(int i=0;i<nums.length-1;i++){
+            for(int j=i+1;j<nums.length;j++){
+                if(nums[j]<nums[i]){
+                    r = Math.max(r, j);
+                    l = Math.min(l, i);
+                }
+            }
+        }
+        return r>l ? r-l+1 : 0;
+    }
+
     public static void main(String[] args){
-        int[] nums = new int[]{1,2,3,4};
+        int[] nums = new int[]{2, 6, 4, 8, 10, 9, 15};
         FindUnsortedSubarray fus = new FindUnsortedSubarray();
-        System.out.println(fus.findUnsortedSubarray(nums));
+        System.out.println(fus.findUnsortedSubarray2(nums));
     }
 }

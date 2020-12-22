@@ -144,6 +144,7 @@ public class TrappingRainWater {
         int right = height.length - 2;
 
         while(left < right){
+            //先更新lmax rmax
             lmax = Math.max(lmax, height[left]);
             rmax = Math.max(rmax, height[right]);
 
