@@ -12,12 +12,12 @@ package leetcode.array.binary_search;
  *
  * 输入：nums = [3,4,5,1,2]
  * 输出：1
- * 示例 2：
  *
+ *  示例 2：
  * 输入：nums = [4,5,6,7,0,1,2]
  * 输出：0
- * 示例 3：
  *
+ * 示例 3：
  * 输入：nums = [1]
  * 输出：1
  *
@@ -28,10 +28,33 @@ package leetcode.array.binary_search;
  * -5000 <= nums[i] <= 5000
  * nums 中的所有整数都是 唯一 的
  * nums 原来是一个升序排序的数组，但在预先未知的某个点上进行了旋转
+ *
+ * toSubmit
  */
 public class SearchMinValueInRotateArray {
 
     public int findMin(int[] nums) {
-        return 0;
+        int left=0;
+        int right=nums.length-1;
+        while(left<=right){
+            int mid = (left+right)>>>1;
+            if(nums[mid]==nums[left]){
+                return nums[mid];
+            }
+            if(nums[left] < nums[mid] && nums[mid] < nums[right]){//最小值即首位
+                return nums[left];
+            } else if(nums[mid]>nums[left]) {//最小值在右
+                left=mid+1;
+            } else {//最小值在左
+                right=mid-1;
+            }
+        }
+        return nums[left];
+    }
+
+    public static void main(String[] args){
+        int[] nums = new int[]{1};
+        SearchMinValueInRotateArray s = new SearchMinValueInRotateArray();
+        System.out.println(s.findMin(nums));
     }
 }

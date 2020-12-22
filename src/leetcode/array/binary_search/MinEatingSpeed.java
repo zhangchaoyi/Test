@@ -31,10 +31,48 @@ package leetcode.array.binary_search;
  * 1 <= piles.length <= 10^4
  * piles.length <= H <= 10^9
  * 1 <= piles[i] <= 10^9
+ *
+ * toSubmit
  */
 public class MinEatingSpeed {
 
     public int minEatingSpeed(int[] piles, int H) {
-        return 0;
+        int ans=0;
+        int max = Integer.MIN_VALUE;
+        for(int i=0;i<piles.length;i++){
+            max = Math.max(piles[i], max);
+        }
+        int left=1;
+        int right=max;
+        while(left<=right){
+            int mid = (left+right)>>>1;
+            if(canSatisfy(mid, piles, H)){
+                ans = mid;
+                right=mid-1;
+            } else {
+                left=mid+1;
+            }
+        }
+
+        return ans;
+    }
+
+    private boolean canSatisfy(int k, int[] piles, int H){
+        int actualCount = 0;
+        for(int i=0;i<piles.length;i++){
+            int remain = piles[i]%k;
+            if(remain>0){
+                actualCount += (piles[i]/k+1);
+            } else {
+                actualCount+=1;
+            }
+        }
+        return H>=actualCount;
+    }
+
+    public static void main(String[] args){
+        int[] piles = new int[]{30,11,23,4,20};
+        MinEatingSpeed mes = new MinEatingSpeed();
+        System.out.println(mes.minEatingSpeed(piles, 6));
     }
 }

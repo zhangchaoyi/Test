@@ -26,6 +26,28 @@ package leetcode.array.binary_search;
 public class SearchMinValueInRotateArray2 {
 
     public int findMin(int[] nums) {
-        return 0;
+        int left=0;
+        int right=nums.length-1;
+        while(left<=right){
+            int mid = (left+right)>>>1;
+            if(nums[left]==nums[right] || nums[mid]==nums[left]) {
+                left++;
+                continue;
+            }
+            if(nums[left] < nums[mid] && nums[mid] < nums[right]){//最小值即首位
+                return nums[left];
+            } else if(nums[mid]>nums[left]) {//最小值在右
+                left=mid+1;
+            } else {//最小值在左
+                right=mid-1;
+            }
+        }
+        return nums[left];
+    }
+
+    public static void main(String[] args){
+        int[] array = new int[]{2,2,2,0,1};
+        SearchMinValueInRotateArray2 s = new SearchMinValueInRotateArray2();
+        System.out.println(s.findMin(array));
     }
 }
