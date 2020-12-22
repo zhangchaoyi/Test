@@ -32,7 +32,6 @@ package leetcode.array.binary_search;
  * piles.length <= H <= 10^9
  * 1 <= piles[i] <= 10^9
  *
- * toSubmit
  */
 public class MinEatingSpeed {
 
@@ -64,7 +63,7 @@ public class MinEatingSpeed {
             if(remain>0){
                 actualCount += (piles[i]/k+1);
             } else {
-                actualCount+=1;
+                actualCount+=piles[i]/k;
             }
         }
         return H>=actualCount;

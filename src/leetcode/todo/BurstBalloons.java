@@ -19,6 +19,8 @@ package leetcode.todo;
  *      coins =  3*1*5      +  3*5*8    +  1*3*8      + 1*8*1   = 167
  *
  * todo
+ *
+ * 思路：BFS
  * @Author: chaoyi.zhang
  * @Date: 2020/12/17 14:48
  */
