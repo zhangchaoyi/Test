@@ -1,5 +1,8 @@
 package leetcode.todo;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 347. 前 K 个高频元素
  * 给定一个非空的整数数组，返回其中出现频率前 k 高的元素。
@@ -23,7 +26,8 @@ package leetcode.todo;
  * 题目数据保证答案唯一，换句话说，数组中前 k 个高频元素的集合是唯一的。
  * 你可以按任意顺序返回答案。
  *
- * 思路：使用空间换时间， HashMap记录次数
+ * 思路：1.使用空间换时间， HashMap记录次数
+ *      2.排序
  * todo
  * @Author: chaoyi.zhang
  * @Date: 2020/12/17 14:49
@@ -31,6 +35,15 @@ package leetcode.todo;
 public class TopKFrequent {
 
     public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> countMap = new HashMap<>();
+        for(int i=0;i<nums.length;i++){
+            int count = countMap.getOrDefault(nums[i], 0);
+            countMap.put(nums[i], count+1);
+
+            countMap.entrySet().stream().forEach(entry -> {
+
+            });
+        }
         return null;
     }
 }
