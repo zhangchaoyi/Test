@@ -19,7 +19,7 @@ package leetcode.todo;
  * 输入：matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]], target = 20
  * 输出：false
  *
- * todo
+ * 思路：两次二分确定 r,c
  * @Author: chaoyi.zhang
  * @Date: 2020/12/17 14:42
  */
