@@ -24,7 +24,6 @@ import java.util.HashSet;
  *
  * 思路：1.排序，再一次遍历找最大值 O(nlogn + n)
  *      2.hashSet，将所有元素放入set，遍历set时，找到一个子序列的最小值（即nums[i]-1在set中不存在） ， 往后+1在set中判断是否存在，不断累加 时间 O(n) 空间 O(n)
- * toSubmit
  * @Author: chaoyi.zhang
  * @Date: 2020/12/17 14:40
  */
@@ -35,7 +34,7 @@ public class LongestConsecutive {
         for(int i=0;i<nums.length;i++){
             set.add(nums[i]);
         }
-        int max = Integer.MIN_VALUE;
+        int max = 0;
         for(Integer num : set){
             if(set.contains(num-1)){
                 continue;

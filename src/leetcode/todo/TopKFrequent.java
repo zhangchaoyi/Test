@@ -42,7 +42,7 @@ public class TopKFrequent {
         PriorityQueue<Holder> queue = new PriorityQueue<>(k, Comparator.comparingInt(Holder::getCount));
 
         countMap.entrySet().stream().forEach(entry->{
-            if(queue.size()<2){
+            if(queue.size()<k){
                 queue.add(new Holder(entry.getKey(), entry.getValue()));
             } else {
                 Holder top = queue.peek();
@@ -74,8 +74,8 @@ public class TopKFrequent {
     }
 
     public static void main(String[] args){
-        int[] nums = new int[]{1,1,1,2,2,3};
+        int[] nums = new int[]{3,0,1,0};
         TopKFrequent tk = new TopKFrequent();
-        System.out.println(Arrays.toString(tk.topKFrequent(nums, 2)));
+        System.out.println(Arrays.toString(tk.topKFrequent(nums, 1)));
     }
 }
