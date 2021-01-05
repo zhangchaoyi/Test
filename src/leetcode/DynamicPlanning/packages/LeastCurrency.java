@@ -1,5 +1,7 @@
 package leetcode.DynamicPlanning.packages;
 
+import leetcode.DynamicPlanning.LongestCommonSubstring;
+
 import java.util.Arrays;
 
 /**
@@ -71,21 +73,14 @@ import java.util.Arrays;
  *      所以 最终有 dp[i][j] = min{dp[i-1][j], dp[i][j-arr[i]]+1}, 如果j - arr[i] < 0 , 数组发生越界，用一张arr[i]都超过了j，此时取dp[i-1][j]
  *
  * =======================================================================================================================
- * 补充题目
- * 给定数组arr,arr中所有的值为正数，每个值仅代表一张钱的面值，在给定整数aim代表要找的钱，求组成aim的最少货币数
- * arr=[5,2,3], aim=20， 5元，2元，3元各有一张，所以无法组成20元，因此返回-1
- * arr=[5,2,5,3],aim=10, 5元的货币有两张，可以组成10元，且是最少的，因此返回2
- * arr=[5,2,5,3],aim=15, 所有的钱加起来组成15元，返回4
- * arr=[5,2,5,3],aim=0 不用任何货币就可以组成0，返回0
- *
  * @author: zhangchaoyi
  * @date: 2019/10/23
  */
 public class LeastCurrency {
 
     public static void main(String[] args){
-        int[] arr=new int[]{2};
-        int aim=0;
+        int[] arr=new int[]{1,4,9};
+        int aim=12;
 
         LeastCurrency lc = new LeastCurrency();
 //        int[] dp = lc.getDp(arr, aim);
@@ -155,6 +150,7 @@ public class LeastCurrency {
                 }
             }
         }
+        LongestCommonSubstring.printArray(dp);
         return dp;
     }
 }

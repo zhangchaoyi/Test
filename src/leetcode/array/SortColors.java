@@ -25,7 +25,9 @@ import java.util.Arrays;
  * @Author: chaoyi.zhang
  * @Date: 2020/11/10 14:15
  *
- * 思路，一次遍历，3个下标 left记录0位置， right记录2位置， 从左向右遍历 i
+ * 思路，
+ * 类似快排思想
+ * 一次遍历，3个下标 left游标记录0位置， right游标记录2位置， 从左向右遍历 i
  * 如果i==0,swap(left++, i)  i==1不处理； i==2 swap(right++, i)（如果i的位置仍然是2while swap右指针）
  * 在遍历的过程中，i左边的有 0和1 ，  left左边是0, left当前位即右边非0，   right右边是2，right当前位置和左边非2
  *

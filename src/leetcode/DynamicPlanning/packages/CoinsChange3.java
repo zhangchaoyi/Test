@@ -1,5 +1,7 @@
 package leetcode.DynamicPlanning.packages;
 
+import leetcode.DynamicPlanning.LongestCommonSubstring;
+
 /**
  * 518. 零钱兑换 II
  * 给定不同面额的硬币和一个总金额。写出函数来计算可以凑成总金额的硬币组合数。假设每一种面额的硬币有无限个。
@@ -26,7 +28,7 @@ package leetcode.DynamicPlanning.packages;
 public class CoinsChange3 {
 
     public static void main(String[] args){
-        int amount = 0; int[] coins = new int[]{};
+        int amount = 5; int[] coins = new int[]{1, 2, 5};
 
         CoinsChange3 cc3 = new CoinsChange3();
         System.out.println(cc3.change(amount, coins));
@@ -40,6 +42,7 @@ public class CoinsChange3 {
             return 0;
         }
         int[][] dp = getDp(coins, amount);
+        LongestCommonSubstring.printArray(dp);
         return dp[coins.length-1][amount];
     }
 

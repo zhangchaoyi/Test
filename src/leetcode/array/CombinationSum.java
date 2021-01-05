@@ -1,5 +1,7 @@
 package leetcode.array;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -37,14 +39,64 @@ import java.util.List;
  * 1 <= candidates[i] <= 200
  * candidate 中的每个元素都是独一无二的。
  * 1 <= target <= 500
- * todo
+ *
+ * 思路：回溯， remind不断进行对四个元素减值，直到刚好为0，记录结果
+ *
  *
  * @Author: chaoyi.zhang
  * @Date: 2020/12/17 14:29
  */
 public class CombinationSum {
 
+    private List<List<Integer>> ans = new ArrayList<>();
+
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        return null;
+        Arrays.sort(candidates);
+        dfs(candidates, target, null, true);
+        return ans;
     }
+
+
+
+    public void dfs(int[] candidates, int target, List<Integer> res, boolean init){
+        if(init){
+            res = new ArrayList<>();
+        }
+
+        for(int i=0;i<candidates.length;i++){
+            if(target == candidates[i]){
+                if(!res.isEmpty() && res.get(res.size()-1) > candidates[i]){
+                    continue;
+                }
+                res.add(candidates[i]);
+                ans.add(new ArrayList<>(res));
+                res.remove(res.size()-1);
+                return;
+            } else if(target < candidates[i]){
+                continue;
+            } else {
+                //保证res中的单调性
+                if(!res.isEmpty() && res.get(res.size()-1) > candidates[i]){
+                    continue;
+                } else {
+                    res.add(candidates[i]);
+                    dfs(candidates, target-candidates[i], res, false);
+                    res.remove(res.size()-1);
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args){
+        int[] nums = new int[]{2,3,5};
+        CombinationSum cs = new CombinationSum();
+        System.out.println(cs.combinationSum(nums, 8));
+    }
+
+
+
+
+
+
+
 }
