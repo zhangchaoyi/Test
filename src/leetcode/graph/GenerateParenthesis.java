@@ -20,7 +20,6 @@ import java.util.List;
  *        "()()()"
  *      ]
  *
- * toSubmit
  * 思路：回溯，left、right分别记录当前str所使用的左括号数和右括号数，每一次递归都在str上在最右添加 "(" 或者 ")"
  * 当left>n || right>n时剪枝
  *

@@ -24,7 +24,11 @@ import java.util.stream.Collectors;
  *
  * 说明: 不要使用类的成员 / 全局 / 静态变量来存储状态，你的序列化和反序列化算法应该是无状态的。
  *
- * toSubmit
+ * 难点在于二叉树不是完全二叉树，中间是存在null的
+ *
+ * 序列化：层序遍历，将每个节点的left、right子节点都存入queue，(当left、right==null也存入队列)，最后要去除尾部的null值
+ *
+ * 反序列化： 解析string为List<Integer>, 包括null值，遍历list， 同时使用queue作为记录分配下一个list节点作为 左、右子节点的父节点
  *
  * @Author: chaoyi.zhang
  * @Date: 2020/12/17 14:45
@@ -75,7 +79,7 @@ public class Serialize {
             return null;
         }
         TreeNode root = new TreeNode(list.get(0));
-        //使用队列
+        //使用队列,存放待作为父节点的元素
         Queue<TreeNode> queue = new LinkedList<>();
 
         boolean setLeft=false;
@@ -84,7 +88,7 @@ public class Serialize {
 
         for(int i=1;i<list.size();i++){
             TreeNode curNode = Objects.nonNull(list.get(i))?new TreeNode(list.get(i)):null;
-
+            //如果左右子节点都设置了则从队列取下一个节点
             if(setLeft&&setRight){
                 node = queue.poll();
                 setLeft=false;
@@ -97,6 +101,7 @@ public class Serialize {
                 node.right = curNode;
                 setRight=true;
             }
+            //当前节点不为空则加入队列作为 待设置子节点 的父节点
             if (Objects.nonNull(curNode)) {
                 queue.add(curNode);
             }
@@ -107,19 +112,22 @@ public class Serialize {
 
     public static void main(String[] args){
         //1,2,3,null,null,4,5
-        TreeNode root = new TreeNode(1);
-        TreeNode Rl = new TreeNode(2);
-        TreeNode Rr = new TreeNode(3);
-        TreeNode Rrl = new TreeNode(4);
-        TreeNode Rrr = new TreeNode(5);
+//        TreeNode root = new TreeNode(1);
+//        TreeNode Rl = new TreeNode(2);
+//        TreeNode Rr = new TreeNode(3);
+//        TreeNode Rrl = new TreeNode(4);
+//        TreeNode Rrr = new TreeNode(5);
+//
+//        root.left = Rl;
+//        root.right = Rr;
+//        Rr.left = Rrl;
+//        Rr.right = Rrr;
 
-        root.left = Rl;
-        root.right = Rr;
-        Rr.left = Rrl;
-        Rr.right = Rrr;
+        String data = "[1,2,3,null,null,4,5]";
 
         Serialize s = new Serialize();
-        System.out.println(s.serialize(root));
+//        System.out.println(s.serialize(root));
+        System.out.println(s.deserialize(data));
     }
 
     private List<Integer> convertStringToList(String data){
@@ -127,11 +135,12 @@ public class Serialize {
         if(splits.length==1 && splits[0].equals("")){
             return new ArrayList<>();
         }
+        System.out.println(Arrays.toString(splits));
         List<Integer> list = Arrays.stream(splits).map(str->{
-            if(str==null||Objects.equals(str,"null")){
+            if(str==null||Objects.equals(str.trim(),"null")){
                 return null;
             }
-            return Integer.valueOf(str);
+            return Integer.valueOf(str.trim());
         }).collect(Collectors.toList());
         return list;
     }
