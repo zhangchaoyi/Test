@@ -29,7 +29,8 @@ package leetcode.array.binary_search;
  * nums 中的所有整数都是 唯一 的
  * nums 原来是一个升序排序的数组，但在预先未知的某个点上进行了旋转
  *
- * toSubmit
+ * 思路：1.暴力法一次遍历 O(n)
+ *      2.二分，不断抛弃完全单调的区间
  */
 public class SearchMinValueInRotateArray {
 
@@ -39,21 +40,22 @@ public class SearchMinValueInRotateArray {
         while(left<=right){
             int mid = (left+right)>>>1;
             if(nums[mid]==nums[left]){
-                return nums[mid];
+                //剩余两个数，返回min{nums[left], nums[right]}
+                return Math.min(nums[left], nums[right]);
             }
-            if(nums[left] < nums[mid] && nums[mid] < nums[right]){//最小值即首位
+            if(nums[left] < nums[mid] && nums[mid] < nums[right]){//完全单调递增，最小值即首位
                 return nums[left];
             } else if(nums[mid]>nums[left]) {//最小值在右
-                left=mid+1;
+                left=mid;//有可能当前的mid即最小值
             } else {//最小值在左
-                right=mid-1;
+                right=mid;//有可能当前的mid即最小值
             }
         }
         return nums[left];
     }
 
     public static void main(String[] args){
-        int[] nums = new int[]{1};
+        int[] nums = new int[]{3,1,2};
         SearchMinValueInRotateArray s = new SearchMinValueInRotateArray();
         System.out.println(s.findMin(nums));
     }
