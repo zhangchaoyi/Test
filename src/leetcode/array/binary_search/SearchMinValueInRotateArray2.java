@@ -22,6 +22,9 @@ package leetcode.array.binary_search;
  *
  * 这道题是 寻找旋转排序数组中的最小值 的延伸题目。
  * 允许重复会影响算法的时间复杂度吗？会如何影响，为什么？
+ *
+ * 思路：出现重复的解决是将mid与left与right比较是否相等，如果相等，left++ or right-- , 进入下一次while
+ * 如果全部都是重复数字，那么时间复杂度从 O(logn) -> O(n)
  */
 public class SearchMinValueInRotateArray2 {
 
@@ -30,23 +33,30 @@ public class SearchMinValueInRotateArray2 {
         int right=nums.length-1;
         while(left<=right){
             int mid = (left+right)>>>1;
-            if(nums[left]==nums[right] || nums[mid]==nums[left]) {
+            if(left==mid){
+                return Math.min(nums[left], nums[right]);
+            }
+            if(nums[mid]==nums[left]){
                 left++;
                 continue;
             }
-            if(nums[left] < nums[mid] && nums[mid] < nums[right]){//最小值即首位
+            if(nums[mid]==nums[right]){
+                right--;
+                continue;
+            }
+            if(nums[left] < nums[mid] && nums[mid] < nums[right]){//完全单调递增，最小值即首位
                 return nums[left];
             } else if(nums[mid]>nums[left]) {//最小值在右
-                left=mid+1;
+                left=mid;//有可能当前的mid即最小值
             } else {//最小值在左
-                right=mid-1;
+                right=mid;//有可能当前的mid即最小值
             }
         }
         return nums[left];
     }
 
     public static void main(String[] args){
-        int[] array = new int[]{2,2,2,0,1};
+        int[] array = new int[]{10,1,10,10,10};
         SearchMinValueInRotateArray2 s = new SearchMinValueInRotateArray2();
         System.out.println(s.findMin(array));
     }
