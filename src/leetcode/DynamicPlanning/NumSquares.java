@@ -1,6 +1,4 @@
-package leetcode.todo;
-
-import leetcode.DynamicPlanning.LongestCommonSubstring;
+package leetcode.DynamicPlanning;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -35,7 +35,6 @@ package leetcode.DynamicPlanning;
  * 0 <= word1.length, word2.length <= 500
  * word1 和 word2 由小写英文字母组成
  *
- * todo
  * 思路：动态规划， 累加的方式，dp[i][j]表示word1的(0,i)到word2的(0,j)的最小编辑距离
  * 编辑距离总共有三种情况
  *  1.word1增加一个字符 等价于 word2减少一个字符

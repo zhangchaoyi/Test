@@ -1,5 +1,8 @@
 package leetcode.todo;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *560. 和为K的子数组
  * 给定一个整数数组和一个整数 k，你需要找到该数组中和为 k 的连续的子数组的个数。
@@ -13,9 +16,12 @@ package leetcode.todo;
  * 数组的长度为 [1, 20,000]。
  * 数组中元素的范围是 [-1000, 1000] ，且整数 k 的范围是 [-1e7, 1e7]。
  *
- * 思路：滑动窗口
- * 从左向右遍历，维护一个和为k的窗口，right满足k后进行记录，同时左指针移动下一位，右指针继续向右遍历
- * 当右指针遍历到区间和 > k , 移动左指针
+ * 思路：
+ * 1.暴力法 O(n^2)
+ * 2.前缀和
+ * pre[i]表示(0..i)的前缀和， 则找出 pre[i]-pre[j]==k的所有情况
+ *
+ * 不能使用滑动窗口，因为有负数存在
  *
  * @Author: chaoyi.zhang
  * @Date: 2020/12/17 14:53
@@ -23,39 +29,56 @@ package leetcode.todo;
 public class SubarraySumEqualsK {
 
     public int subarraySum(int[] nums, int k) {
+        int[] pre = new int[nums.length+1];
+        pre[0]=0;
+        for(int i=0;i<nums.length;i++){
+            pre[i+1]=pre[i]+nums[i];
+        }
         int ans = 0;
-        int left=0;
-        int right=1;
-
-        int curSum=nums[0];
-        while(right<nums.length){
-            curSum+=nums[right];
-
-            if (curSum==k) {
-                ans++;
-                curSum-=nums[left];
-                left++;
-            } else if(curSum > k){
-                while(curSum>k){
-                    curSum-=nums[left];
-                    left++;
-                    if(curSum==k){
-                        ans++;
-                        curSum-=nums[left];
-                        left++;
-                        break;
-                    }
+        for(int i=0;i<nums.length+1;i++){
+            for(int j=i+1;j<nums.length+1;j++){
+                if (pre[j]-pre[i]==k) {
+                    ans++;
                 }
             }
-            right++;
         }
 
         return ans;
     }
 
+
+    /**
+     * 前缀和优化， 未理解
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int subarraySum2(int[] nums, int k) {
+        // key：前缀和，value：key 对应的前缀和的个数
+        Map<Integer, Integer> preSumFreq = new HashMap<>();
+        // 对于下标为 0 的元素，前缀和为 0，个数为 1
+        preSumFreq.put(0, 1);
+
+        int preSum = 0;
+        int count = 0;
+        for (int num : nums) {
+            preSum += num;
+
+            // 先获得前缀和为 preSum - k 的个数，加到计数变量里
+            if (preSumFreq.containsKey(preSum - k)) {
+                count += preSumFreq.get(preSum - k);
+            }
+
+            // 然后维护 preSumFreq 的定义
+            preSumFreq.put(preSum, preSumFreq.getOrDefault(preSum, 0) + 1);
+        }
+        return count;
+    }
+
     public static void main(String[] args){
         int[] nums = new int[]{1,1,1};
+//        int[] nums = new int[]{1,-1,0};
         SubarraySumEqualsK sse = new SubarraySumEqualsK();
-        System.out.println(sse.subarraySum(nums, 2));
+        System.out.println(sse.subarraySum2(nums, 2));
     }
 }
