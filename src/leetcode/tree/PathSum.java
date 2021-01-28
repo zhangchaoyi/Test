@@ -110,7 +110,7 @@ public class PathSum {
         if (root.val == sum) {//当前节点直接满足
             result++;
         }
-        //记录当前节点这一层的值
+        //记录当前节点这一层的值，关键，下面逻辑只考虑p之前的数字，因此list就算包含大于p层的多余的数字也不会用到
         list.add(p, root.val);
         //当前节点逐层加上前面几层判断是否满足
         int temp = root.val;
