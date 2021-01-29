@@ -89,6 +89,7 @@ public class ThreeSum {
         Arrays.sort(nums);
 
         for(int i=0;i<nums.length;i++){
+            //去重
             if (i!=0 && nums[i] == nums[i-1]) {
                 continue;
             }
@@ -127,7 +128,7 @@ public class ThreeSum {
     }
 
     public static void main(String[] args){
-        int[] nums = new int[]{-4,-1,-1,0,1,2};
+        int[] nums = new int[]{-4,-1,-1,0,1,2,2,2,3,4,5,6};
         ThreeSum ts = new ThreeSum();
         System.out.println(ts.threeSum2(nums));
     }

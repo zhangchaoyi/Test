@@ -29,11 +29,26 @@ public class Test {
 //        System.out.println(c.getTime());
 //        System.out.println(d.compareTo(c.getTime()) < 0);
 
-        List<String> list = new ArrayList<>();
-        List<String> list2 = new ArrayList<>();
-        System.out.println(list.getClass()==list2.getClass());
+//        List<String> list = new ArrayList<>();
+//        List<String> list2 = new ArrayList<>();
+//        System.out.println(list.getClass()==list2.getClass());
 
+        Map<String, Map<String, List<String>>> locationMap = new HashMap<>();
 
+        Map<String, List<String>> gdProvinceMap = new HashMap<>();
+        gdProvinceMap.put("佛山", new ArrayList<String>(){{add("高明");add("南海");add("顺德");}});
+        gdProvinceMap.put("广州", new ArrayList<String>(){{add("天河");add("海珠");add("白云");}});
+
+        locationMap.put("广东", gdProvinceMap);
+
+        Map<String, List<String>> sdProvinceMap = new HashMap<>();
+        sdProvinceMap.put("济南", new ArrayList<String>(){{add("历下");add("历城");add("高新");}});
+        sdProvinceMap.put("青岛", new ArrayList<String>(){{add("城阳");add("市南");add("市北");}});
+
+        locationMap.put("广东", gdProvinceMap);
+        locationMap.put("山东", sdProvinceMap);
+
+        System.out.println(locationMap);
     }
 
     //hashmap初始算法要求 size都是2的n次幂

@@ -35,7 +35,8 @@ public class FindDiffNum {
 
         int diffTwoNum = getOneDiffNum(new ArrayList<>(Arrays.asList(arr)));
 
-        //此时diffTwoNum是两个相异数的异或结果
+        //此时diffTwoNum是两个相异数的异或结果，要找到diffTwoNum中某一位为1的position，
+        //(1 << shiftBit) 相当于 把1左移shiftBit位，即1   2^1   2^2   2^3 .....把每一次得到的移位后结果与 diffTwoNum 做 与运算 判断是否为0 找到从左起最近的1
         int shiftBit = 0;
         while(shiftBit <= 31) {//这个循环是看从最低位开始，哪个位是第一个不同的，也就是为1的
             if(  (diffTwoNum & (1 << shiftBit)) != 0 ) break;

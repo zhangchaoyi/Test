@@ -8,10 +8,12 @@ import java.util.Arrays;
  *
  *  dp[str1.length()][str2.length()]
  *  dp[i][j] 表示 str1[0....i] 和 str2[0....j] 的最长公共子序列的长度
+ *
+ *  枚举所有情况
  *  则满足 dp[i][j] = max{
- *                      dp[i-1][j],--- 代表str1[0...i-1]和str2[0...j]中的最长公共子序列长度
- *                      dp[i][j-1],--- 代表str1[0...i]和str2[0...j-1]中的最长公共子序列长度
  *                      dp[i-1][j-1] + 1 ,(要求str1[i]==str2[j])
+ *                      dp[i-1][j],--- 代表str1[0...i-1]和str2[0...j]中的最长公共子序列长度 ， str1[i]！=str2[j]
+ *                      dp[i][j-1],--- 代表str1[0...i]和str2[0...j-1]中的最长公共子序列长度 ， str1[i]！=str2[j]
  *                      }
  * 时间复杂度 O(M*N) + O(max{M,N})
  * @author: zhangchaoyi
@@ -65,7 +67,7 @@ public class LongestCommonSubSequence {
     }
 
     /**
-     * 将dp中的数据取出
+     * 将dp中的数据取出，根据正向的规则逆向取出
      * dp中右下角的数字代表 str1[0...i]、str2[0...j] 中的最大子序列的长度，
      * 以(r,c) 代表当前的位置，以int[][] res保存最长子序列的数字， 则有三种移动位置，向左，向上，向左上
      * 1.如果 dp[r][c] > dp[r-1][c] && dp[r][c] > dp[r][c-1] ，则当前位置(r,c)一定有str1[r]==str2[c], 此时记录值到res，同时往左上移动 r-1, c-1

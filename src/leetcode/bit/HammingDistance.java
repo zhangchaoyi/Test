@@ -36,7 +36,7 @@ public class HammingDistance {
         int count=0;
         while (res!=0) {
             count++;
-            res = res&(res-1);
+            res = res&(res-1);//此位运算可以不断消除1
         }
 
         return count;

@@ -26,7 +26,7 @@ public class BitTest {
     }
 
     /**
-     * 计算2的n次方
+     * 计算2的n次方，相当于左移
      * @param n  次幂
      * @return
      */

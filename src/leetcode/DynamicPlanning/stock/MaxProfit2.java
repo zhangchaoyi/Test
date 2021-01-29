@@ -42,16 +42,16 @@ package leetcode.DynamicPlanning.stock;
  * 即记录每一段增量的区间
  * <p>
  * 动态规划： cash表示第i天不持股   hold表示第i天持股
- * cash[i] = max{cash[i-1], hold[i-1]+price[i]}
- * hold[i] = max{hold[i-1], cash[i-1]-price[i]}
+ * cash[i] = max{cash[i-1], hold[i-1]+price[i]}   //即取 max{ i-1 天不持股 , i-1天持股，i天买入}
+ * hold[i] = max{hold[i-1], cash[i-1]-price[i]}   //即取 max{ i-1 天持股 , i-1天不持股，i天卖入}
  */
 public class MaxProfit2 {
 
     public int maxProfitDp(int[] prices) {
         int[] cash = new int[prices.length];
         int[] hold = new int[prices.length];
-        cash[0] = 0;
-        hold[0] = -prices[0];
+        cash[0] = 0;//第一天不持股，没有交易
+        hold[0] = -prices[0]; //第一天持股，买入
 
         for (int i = 1; i < prices.length; i++) {
             cash[i] = Math.max(cash[i - 1], hold[i - 1] + prices[i]);

@@ -32,6 +32,9 @@ package leetcode.array.binary_search;
  * piles.length <= H <= 10^9
  * 1 <= piles[i] <= 10^9
  *
+ * 思路：不断对于速度k做二分，   left=1, right=piles[max] //因为 H>=piles.length, 因此找出piles的最大值作为初始最大速度
+ * 如果mid能满足，记录mid，尝试更小的速度，right-1
+ * 如果mid不能满足，left+1，说明需要更大的速度k， left+1
  */
 public class MinEatingSpeed {
 
@@ -56,6 +59,13 @@ public class MinEatingSpeed {
         return ans;
     }
 
+    /**
+     * 计算 以每小时k的速度吃完piles所有香蕉，能否满足小于H
+     * @param k
+     * @param piles
+     * @param H
+     * @return
+     */
     private boolean canSatisfy(int k, int[] piles, int H){
         int actualCount = 0;
         for(int i=0;i<piles.length;i++){
