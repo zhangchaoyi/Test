@@ -1,5 +1,9 @@
 package leetcode.list;
 
+import java.util.Comparator;
+import java.util.Objects;
+import java.util.PriorityQueue;
+
 /**
  * Created by zcy on 18-5-16.
  * 合并 k 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。
@@ -11,61 +15,45 @@ package leetcode.list;
  ]
  输出: 1->1->2->3->4->4->5->6
 
- 插入排序 时间复杂度O(n平方)
+ 思路：1、合并到一个链表，换成数组排序，再换回链表 时间复杂度 O(knlogkn)
+
+      2、使用size=k的最小堆，初始化放入k个链表头，每次取出堆顶最小的节点，并把该节点的下一个链表节点放入堆
+        时间复杂度O(knlogk) 一次插入的时间复杂度O(logk)
+
  ----------------------------------------------------------------------------------
- 可以改进算法，每次同时对k个list取出各个list的第一个元素比较大小 并且取出最小的一个，循环取数得到最终结果 时间复杂度O(k*n))
  */
-public class MergeList {
+public class MergeKList {
 
     public static ListNode mergeKLists(ListNode[] lists){
-        if(lists == null || lists.length == 0){
+        if(lists == null || lists.length==0){
             return null;
         }
+        if(lists.length==1){
+            return lists[0];
+        }
+        PriorityQueue<ListNode> minHeap = new PriorityQueue<>(lists.length, Comparator.comparingInt((ListNode l) -> l.val));
 
-        ListNode head = lists[0];//第一个排序链表头节点
+        for(int i=0;i<lists.length;i++){
+            if(Objects.nonNull(lists[i])){
+                minHeap.add(lists[i]);
+            }
+        }
+        ListNode dummy = new ListNode(Integer.MAX_VALUE);
+        ListNode tail = dummy;
 
-        for(int i=1 ; i<lists.length; i++){
-            ListNode node = lists[i];
-            while(node != null){
-                ListNode next = node.next;
-                head = addNode(head, node);
-                node = next;
+        while(!minHeap.isEmpty()){
+            ListNode top = minHeap.poll();
+            tail.next = top;
+            tail = tail.next;
+
+            if(Objects.nonNull(top.next)){
+                minHeap.add(top.next);
             }
         }
 
-        return head;
+        return dummy.next;
     }
 
-    /**
-     * 将当前node插入到有序的链表中
-     * @param sortListHead
-     * @param insertNode
-     */
-    private static ListNode addNode(ListNode sortListHead, ListNode insertNode){
-        ListNode newNode = new ListNode(insertNode.val);
-        if(sortListHead == null){
-            return newNode;
-        }
-        ListNode cur = sortListHead;
-        ListNode prev = null;
-        while(cur != null && cur.val <= newNode.val){
-            prev = cur;
-            cur = cur.next;
-        }
-        if(cur != null){//当前的cur比insert大
-            if(prev == null){//头节点
-                newNode.next = cur;
-                sortListHead = newNode;
-            } else {
-                prev.next = newNode;
-                newNode.next = cur;
-            }
-        } else {//添加到最后节点
-            prev.next = newNode;
-        }
-
-        return sortListHead;
-    }
 
     public static void main(String[] args){
         ListNode l1 = new ListNode(2);
@@ -119,6 +107,10 @@ public class MergeList {
 
 
         ListNode[] lists = new ListNode[]{};
+//        lists[0] = l1;
+//        lists[1] = l8;
+//        lists[2] = l15;
+//        [[]]
         System.out.println(mergeKLists(lists));
 
     }
