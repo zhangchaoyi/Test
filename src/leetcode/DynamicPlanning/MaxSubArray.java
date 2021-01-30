@@ -12,6 +12,8 @@ import java.util.Arrays;
  * 思路：
  * 1.暴力解法 O(n * n * n)
  * 2.前缀和 O(n*n) , dp[i][j] 表示区间 [i, j] 之间的和， dp[i][j] = sum[j] - sum[i-1]
+ * 3.动态规划，dp[i]表示以i结尾的连续子数组最大和，
+ *              则有 dp[i]=max{dp[i-1]+nums[i], nums[i]} ， 如果dp[i-1]为负数需要丢弃
  * <p>
  * 进阶:
  * 如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的分治法求解。
@@ -75,15 +77,33 @@ public class MaxSubArray {
      */
     public int maxSubArrayPosition3(int[] nums) {
         int[] dp = new int[nums.length];
+        int max = Integer.MIN_VALUE;
+        int maxIndex = 0;
         dp[0] = nums[0];
 
         for (int i = 1; i < nums.length; i++) {
             dp[i] = Math.max(dp[i-1]+nums[i], nums[i]);
+
+            if(dp[i]>max){
+                max = dp[i];
+                maxIndex = i;
+            }
+
         }
 
         System.out.println(Arrays.toString(dp));
 
-        return 0;
+        //找出dp中的max和连续子数组的起始和结束index, 在dp[max]向左找不断减去dp[left]直到0
+        int left=maxIndex;
+        int sum = max;
+        while(sum!=0){
+            sum -= nums[left];
+            left--;
+        }
+
+        System.out.println("left:"+(left+1)+" right:"+maxIndex);
+
+        return max;
     }
 
     /**
@@ -109,7 +129,7 @@ public class MaxSubArray {
      */
     public int maxSubArrayPosition1(int[] nums) {
         for (int i = 0; i < nums.length; i++) {
-            for (int j = i; j < nums.length; j++) {
+            for (int j = i+1; j < nums.length; j++) {
                 for (int k = i; k < j; k++) {
                     //累加
                 }

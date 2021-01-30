@@ -38,14 +38,15 @@ public class SortColors {
         if (nums.length==1) {
             return;
         }
-        int left = 0;
-        int right = nums.length-1;
+        int left = 0;//left左边表示0，不包括left
+        int right = nums.length-1;//right右边表示2，不包括right
 
         for(int i=0;i<nums.length;i++){
             if(i>right) {
                 break;
             }
             //1.可能swap后仍然为2，因此需要while 2.如果swap后是0，则被后续处理
+            //需要注意边界 i<=right
             while (i<=right && nums[i]==2) {
                 swap(nums, right--, i);
             }
