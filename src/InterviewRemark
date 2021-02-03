@@ -18,5 +18,25 @@ hashmap原理，底层实现，loadFactors过小过大，1.8之后为什么使�
 synchronized/AQS的底层原理和实现， 锁的理解
 用过哪些中间件，redis哨兵和集群区别，redis淘汰策略
 分布式锁有哪些，redis与zk作为分布式锁的区别
+new线程的方式，线程的状态，Thread和Runnable有什么区别，线程池原理参数
+jvm内存区域，双亲委派模型，引用类型有哪些，不同引用类型的应用场景
 
 算法：滑动窗口最大值
+
+
+
+
+
+微众
+如何保证系统的健壮性
+调用第三方API超时重试是怎么做的
+根据做过的项目解释幂等性
+httpClient的RequestTimeout和connectTimeout为什么设置为3s和6s
+如何知道一个请求是重试的请求还是新的请求
+线程池原理，线程池备压模式
+事务隔离级别
+联合索引最左匹配原则
+sql优化策略
+TCPIP
+
+

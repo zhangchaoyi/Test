@@ -3,6 +3,7 @@ package leetcode.list;
 import java.util.Comparator;
 import java.util.Objects;
 import java.util.PriorityQueue;
+import java.util.concurrent.ForkJoinPool;
 
 /**
  * Created by zcy on 18-5-16.
@@ -113,5 +114,7 @@ public class MergeKList {
 //        [[]]
         System.out.println(mergeKLists(lists));
 
+        ForkJoinPool.commonPool();
+        new ForkJoinPool();
     }
 }
