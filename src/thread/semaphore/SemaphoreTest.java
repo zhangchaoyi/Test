@@ -8,24 +8,27 @@ import java.util.concurrent.TimeUnit;
  */
 public class SemaphoreTest {
 
-    public static void main(String[] args) throws Exception{
-        Semaphore s = new Semaphore(3);
+    private Semaphore s = new Semaphore(1);
 
-        for(int i = 0 ; i<5; i++){
-            s.acquire(1);
+    public static void main(String[] args) throws Exception{
+        SemaphoreTest st = new SemaphoreTest();
+
+        for(int i = 0 ; i<1; i++){
             final int fi = i;
-            Thread t = new Thread(() -> run(fi));
+            Thread t = new Thread(() -> st.run(fi));
             t.start();
         }
 
     }
 
-    public static void run(int fi) {
+    public void run(int fi) {
         while(true) {
-            System.out.println(fi);
             try {
-                TimeUnit.SECONDS.sleep(5);
-            } catch (Exception e) {
+                s.acquire();//向 s 进行申请一个许可，如果在下方没有释放则无法获取
+                System.out.println(fi);
+                TimeUnit.SECONDS.sleep(1);
+                s.release();
+            } catch(Exception e){
 
             }
         }

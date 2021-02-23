@@ -62,7 +62,7 @@ public class OrderThreadTest3 {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        B.acquire(); C.acquire(); // 开始只有A可以获取, BC都不可以获取, 保证了A最先执行 对BC 先permit-1
+        B.acquire(); C.acquire(); // BC预先获取了许可，因此在run中都不可以获取, 保证了A最先执行 对BC 先permit-1
         new ThreadA().start();
         new ThreadB().start();
         new ThreadC().start();

@@ -14,10 +14,9 @@ public class OrderThreadTest {
 
     private void executeA(){
         while(true){
-            System.out.println("execute A count:"+count);
             lock.lock();
             if (count % 3 == 0){
-                System.out.println("********* A");
+                System.out.println("********* A count:" + count);
                 count ++ ;
             }
             lock.unlock();
@@ -26,10 +25,9 @@ public class OrderThreadTest {
 
     private void executeB(){
         while(true){
-            System.out.println("execute B count:"+count);
             lock.lock();
             if (count % 3 == 1) {
-                System.out.println("********* B");
+                System.out.println("********* B count:" + count);
                 count++;
             }
             lock.unlock();
@@ -38,16 +36,10 @@ public class OrderThreadTest {
 
     private void executeC(){
         while(true) {
-            System.out.println("execute C count:"+count);
             lock.lock();
             if (count % 3 == 2) {
-                System.out.println("********* C");
+                System.out.println("********* C count:" + count);
                 count++;
-                try {
-                    Thread.sleep(2000);
-                } catch(InterruptedException e){
-
-                }
             }
             lock.unlock();
         }

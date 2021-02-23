@@ -38,7 +38,8 @@ public class TopKFrequent {
             int count = countMap.getOrDefault(nums[i], 0);
             countMap.put(nums[i], count+1);
         }
-        PriorityQueue<Holder> queue = new PriorityQueue<>(k, Comparator.comparingInt(Holder::getCount));
+        PriorityQueue<Holder> queue = new PriorityQueue<>(k, Comparator.comparingInt(Holder::getCount));//维护最小堆
+//        PriorityQueue<Holder> queue = new PriorityQueue<>(k, Comparator.comparingInt(Holder::getCount).reversed());//维护最大堆
 
         countMap.entrySet().stream().forEach(entry->{
             if(queue.size()<k){
@@ -46,6 +47,7 @@ public class TopKFrequent {
             } else {
                 Holder top = queue.peek();
                 if(entry.getValue() > top.getCount()) {
+//                if(entry.getValue() < top.getCount()) {  //维护最大堆
                     queue.poll();
                     queue.add(new Holder(entry.getKey(), entry.getValue()));
                 }
@@ -73,8 +75,8 @@ public class TopKFrequent {
     }
 
     public static void main(String[] args){
-        int[] nums = new int[]{3,0,1,0};
+        int[] nums = new int[]{3,0,1,0,0,5,0,3,1,4};
         TopKFrequent tk = new TopKFrequent();
-        System.out.println(Arrays.toString(tk.topKFrequent(nums, 1)));
+        System.out.println(Arrays.toString(tk.topKFrequent(nums, 2)));
     }
 }
