@@ -1,4 +1,4 @@
-package leetcode.array;
+package leetcode.array.quick_sort_way;
 
 import java.util.Arrays;
 
@@ -11,28 +11,13 @@ import java.util.Arrays;
  输入: [0,1,0,3,12]
  输出: [1,3,12,0,0]
 
- 原地移动：时间复杂度O(n) ,  空间复杂度 O(1)
-  左指针用于指向非零元素的最后一位，可以保证左指针左边的都是非零元素
-  右指针用于指向遍历，等到右指针到length结束
+ 类似快排思想
+ 将非0元素原地移动：时间复杂度O(n) ,  空间复杂度 O(1)
+  左指针表示指向非零元素的最后一位，最终可以保证左指针左边的都是非零元素
+  右指针用于指向遍历，每遍历到一个非0元素赋值 nums[left++], 则等到右指针到length结束
 
  */
 public class MoveZeroes {
-
-    public void moveZeroes(int[] nums) {
-        for(int i=0; i<nums.length - 1; i++){
-            if (nums[i] == 0) {
-                int next = i+1;
-                while(next <= nums.length - 1 && nums[next] == 0){
-                    next++;
-                }
-                if(next > nums.length - 1) {
-                    break;
-                }
-                //swap i next
-                swap(nums, i, next);
-            }
-        }
-    }
 
     public void moveZeroes2(int[] nums) {
         int left = 0;
@@ -45,7 +30,7 @@ public class MoveZeroes {
             }
             right++;
         }
-        //将left右边的置零
+        //一次遍历后将left右边的置零
         for(int i=left;i<nums.length;i++){
             nums[i]=0;
         }

@@ -1,4 +1,4 @@
-package leetcode.array;
+package leetcode.DynamicPlanning;
 
 /**
  * 152. 乘积最大子数组
@@ -19,11 +19,9 @@ package leetcode.array;
  *
  * 思路：1.暴力解法 O(n^3)
  *
- * 2.动态规划 dp[i][j] 表示数组（i,j）的乘积 , dp[i][j] = dp[i][j-1] * nums[i] , i<j
- *
- * 3.[题解] 动态规划，因为有负数的存在，设置两个dp[], 一个记录最大乘积，一个记录最小乘积
+ * 2.[题解] 动态规划，因为有负数的存在，设置两个dp[], 一个记录最大乘积，一个记录最小乘积
  *          maxDp[i]表示以i结尾的子数组的最大乘积 maxDp[i] = max{maxDp[i-1]*nums[i], nums[i], minDp[i-1]*nums[i]}
- *          maxDp[i]表示以i结尾的子数组的最大乘积 minDp[i] = min{maxDp[i-1]*nums[i], nums[i], minDp[i-1]*nums[i]}
+ *          minDp[i]表示以i结尾的子数组的最小乘积 minDp[i] = min{maxDp[i-1]*nums[i], nums[i], minDp[i-1]*nums[i]}
  */
 public class MaxProduct {
 
@@ -80,7 +78,7 @@ public class MaxProduct {
     }
 
     public static void main(String[] args){
-        int[] array = new int[]{-2,0,-1};
+        int[] array = new int[]{2,3,-2,4};
         MaxProduct mp = new MaxProduct();
         System.out.println(mp.maxProduct(array));
     }

@@ -46,9 +46,9 @@ public class MedianSortedArray {
         int j=0;//for nums2
         int length = nums1.length + nums2.length;
         boolean even = (length % 2 == 0);
-        int mid = (nums1.length + nums2.length)/2;
+        int mid = length/2;
 
-        while((i + j) <= mid ){
+        while((i + j) <= mid ){//只需要取到 mid 即可停止，此时返回temp最后一位
             //分别判断 i j 溢出
             if(i > nums1.length - 1){
                 temp.add(nums2[j++]);

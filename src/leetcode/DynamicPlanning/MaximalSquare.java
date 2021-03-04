@@ -1,6 +1,4 @@
-package leetcode.array.two_dimension;
-
-import leetcode.DynamicPlanning.LongestCommonSubstring;
+package leetcode.DynamicPlanning;
 
 /**
  * 221. 最大正方形
