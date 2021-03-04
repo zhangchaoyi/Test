@@ -1,4 +1,4 @@
-package leetcode.array;
+package leetcode.array.quick_sort_way;
 
 import java.util.Arrays;
 

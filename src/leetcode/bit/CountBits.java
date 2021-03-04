@@ -74,6 +74,6 @@ public class CountBits {
 
     public static void main(String[] args){
         CountBits cb = new CountBits();
-        System.out.println(Arrays.toString(cb.countBits(64)));
+        System.out.println(Arrays.toString(cb.countBits1(64)));
     }
 }
